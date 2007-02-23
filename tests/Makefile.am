@@ -19,10 +19,10 @@ LDADD=\
 
 if HAVE_CHECK
 noinst_PROGRAMS+=\
-	m-uba-testsession
+	m-mock-objects
 
-m_uba_testsession_SOURCES=\
-	m-uba-testsession.c \
+m_mock_objects_SOURCES=\
+	m-mock-objects.c \
 	s-test-session.c \
 	s-test-session.h
 
