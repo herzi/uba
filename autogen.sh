@@ -10,7 +10,7 @@ REQUIRED_AUTOMAKE_VERSION=1.9
 #ACLOCAL_FLAGS="-I macros $ACLOCAL_FLAGS"
 
 (test -f $srcdir/configure.ac \
-  && test -d $srcdir/src) || {
+  && test -d $srcdir/tests) || {
     echo -n "**Error**: Directory "\`$srcdir\'" does not look like the"
     echo " top-level $PKG_NAME directory"
     exit 1

@@ -9,3 +9,8 @@ Makefile
 Makefile.in
 config.log
 config.status
+config.guess
+config.sub
+depcomp
+libtool
+ltmain.sh
