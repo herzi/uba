@@ -28,6 +28,8 @@
 Suite*
 test_session_suite (void)
 {
-	return NULL;
+	Suite* self = suite_create ("test-session");
+	suite_add_tcase (self, NULL);
+	return self;
 }
 
