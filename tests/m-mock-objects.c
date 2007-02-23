@@ -23,7 +23,7 @@
  * if advised of the possibility of such damage.
  */
 
-#include "s-test-session.h"
+#include "s-mock-dbus-session.h"
 
 int
 main(int argc, char** argv)

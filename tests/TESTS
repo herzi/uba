@@ -1,0 +1,31 @@
+Testing UBA
+===========
+
+This file explains some concepts about testing:
+
+Naming Conventions
+------------------
+
+Files within the tests folder should fall into onw of these categories:
+
+e-test-session.c (e-*.c)
+	These files indicate examples. They usually have two special purposes.
+	The first is to be some bright examples for people starting to look at
+	the code (»this code works like that«).
+	The second purpose is documentation: By having all the code snippets
+	from the documentation in this directory, we can savely check whether
+	the snippets compile (and thus are recent).
+
+m-uba.c (m-*.c)
+	These files contain module tests.
+
+s-mock-session.c (s-*.h)
+	These files contain test suites.
+
+t-*.h
+	These files contain the test cases.
+
+mock-*.c
+	These files contain mock objects and other code that's used by the test
+	cases to be able to execute the tests.
+

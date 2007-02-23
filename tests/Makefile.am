@@ -23,8 +23,8 @@ noinst_PROGRAMS+=\
 
 m_mock_objects_SOURCES=\
 	m-mock-objects.c \
-	s-test-session.c \
-	s-test-session.h
+	s-mock-dbus-session.c \
+	s-mock-dbus-session.h
 
 AM_CPPFLAGS+=\
 	$(CHECK_CFLAGS)
