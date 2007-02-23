@@ -11,11 +11,13 @@ noinst_PROGRAMS=\
 TESTS=$(noinst_PROGRAMS)
 
 m_uba_testsession_SOURCES=\
-	m-uba-testsession.c
+	m-uba-testsession.c \
+	s-test-session.c \
+	s-test-session.h
 
 AM_CPPFLAGS=\
 	$(CHECK_CFLAGS) \
-	$(UBA_LIBS)
+	$(UBA_CFLAGS)
 LDADD=\
 	$(CHECK_LIBS) \
 	$(UBA_LIBS)

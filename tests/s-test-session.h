@@ -23,19 +23,16 @@
  * if advised of the possibility of such damage.
  */
 
-#include "s-test-session.h"
+#ifndef S_TEST_SESSION_H
+#define S_TEST_SESSION_H
 
-int
-main(int argc, char** argv)
-{
-	SRunner* r;
-	int      failed = 0;
+#include <check.h>
+#include <glib/gmacros.h>
 
-	r = srunner_create (test_session_suite ());
-	srunner_run_all (r, CK_NORMAL);
-	failed = srunner_ntests_failed (r);
-	srunner_free (r);
+G_BEGIN_DECLS
 
-	return failed != 0;
-}
+Suite* test_session_suite (void);
 
+G_END_DECLS
+
+#endif /* !S_TEST_SESSION_H */
