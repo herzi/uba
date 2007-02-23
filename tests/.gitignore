@@ -3,6 +3,6 @@
 *.o
 *.lo
 *.la
-e-test-session
+e-mock-dbus-session
 m-uba
 m-uba-testsession

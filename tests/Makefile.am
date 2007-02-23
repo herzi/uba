@@ -6,10 +6,10 @@ libmock_objects_la_SOURCES=\
 	mock-dbus-session.h
 
 noinst_PROGRAMS=\
-	e-test-session
+	e-mock-dbus-session
 
 e_test_session_SOURCES=\
-	e-test-session.c
+	e-mock-dbus-session.c
 
 AM_CPPFLAGS=\
 	$(UBA_CFLAGS)
