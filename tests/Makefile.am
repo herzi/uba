@@ -13,6 +13,12 @@ TESTS=$(noinst_PROGRAMS)
 m_uba_testsession_SOURCES=\
 	m-uba-testsession.c
 
+AM_CPPFLAGS=\
+	$(CHECK_CFLAGS) \
+	$(UBA_LIBS)
 LDADD=\
-	$(CHECK_LIBS)
+	$(CHECK_LIBS) \
+	$(UBA_LIBS)
+
+## FIXME: add memcheck target
 endif
