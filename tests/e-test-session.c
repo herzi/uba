@@ -33,6 +33,8 @@
 int
 main(int argc, char** argv)
 {
+	uba_test_session_start ();
+	uba_test_session_end ();
 	return 0;
 }
 

@@ -1,4 +1,4 @@
-/* This file is part of ...
+/* This file is part of the universal business adapter
  *
  * AUTHORS
  *     Sven Herzberg  <herzi@gnome-de.org>
@@ -26,5 +26,13 @@
 #ifndef UBA_TEST_SESSION_H
 #define UBA_TEST_SESSION_H
 
+#include <glib/gmacros.h>
+
+G_BEGIN_DECLS
+
+void uba_test_session_start (void);
+void uba_test_session_end   (void);
+
+G_END_DECLS
 
 #endif /* !UBA_TEST_SESSION_H */

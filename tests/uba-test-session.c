@@ -1,4 +1,4 @@
-/* This file is part of ...
+/* This file is part of the universal business adapter
  *
  * AUTHORS
  *     Sven Herzberg  <herzi@gnome-de.org>
@@ -24,4 +24,12 @@
  */
 
 #include "uba-test-session.h"
+
+void
+uba_test_session_start (void)
+{}
+
+void
+uba_test_session_end (void)
+{}
 

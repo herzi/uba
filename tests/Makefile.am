@@ -28,6 +28,7 @@ m_uba_testsession_SOURCES=\
 AM_CPPFLAGS+=\
 	$(CHECK_CFLAGS)
 LDADD+=\
+	libuba-testsession.la \
 	$(CHECK_LIBS)
 endif
 
