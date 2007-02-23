@@ -1,9 +1,9 @@
 noinst_LTLIBRARIES=\
-	libuba-testsession.la
+	libmock-objects.la
 
-libuba_testsession_la_SOURCES=\
-	uba-test-session.c \
-	uba-test-session.h
+libmock_objects_la_SOURCES=\
+	mock-dbus-session.c \
+	mock-dbus-session.h
 
 noinst_PROGRAMS=\
 	e-test-session
@@ -14,6 +14,7 @@ e_test_session_SOURCES=\
 AM_CPPFLAGS=\
 	$(UBA_CFLAGS)
 LDADD=\
+	libmock-objects.la \
 	$(UBA_LIBS)
 
 if HAVE_CHECK
@@ -28,7 +29,6 @@ m_uba_testsession_SOURCES=\
 AM_CPPFLAGS+=\
 	$(CHECK_CFLAGS)
 LDADD+=\
-	libuba-testsession.la \
 	$(CHECK_LIBS)
 endif
 

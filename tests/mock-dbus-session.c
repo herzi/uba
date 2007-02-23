@@ -23,7 +23,7 @@
  * if advised of the possibility of such damage.
  */
 
-#include "uba-test-session.h"
+#include "mock-dbus-session.h"
 
 void
 uba_test_session_start (void)
