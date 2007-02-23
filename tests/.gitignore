@@ -3,5 +3,6 @@
 *.o
 *.lo
 *.la
+e-test-session
 m-uba
 m-uba-testsession
