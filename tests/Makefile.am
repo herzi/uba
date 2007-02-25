@@ -6,7 +6,8 @@ libmock_objects_la_SOURCES=\
 	mock-dbus-session.h
 
 noinst_PROGRAMS=\
-	e-mock-dbus-session
+	e-mock-dbus-session \
+	e-uba-container
 
 e_mock_dbus_session_SOURCES=\
 	e-mock-dbus-session.c
