@@ -1,4 +1,4 @@
-/* This file is part of ...
+/* This file is part of uba
  *
  * AUTHORS
  *     Sven Herzberg  <herzi@gnome-de.org>
@@ -23,5 +23,13 @@
  * if advised of the possibility of such damage.
  */
 
-#include "e-uba-container.h"
+#include <gtk/gtk.h>
+
+int
+main(int argc, char** argv)
+{
+	GtkWidget* window;
+	GtkWidget* container;
+	return 0;
+}
 
