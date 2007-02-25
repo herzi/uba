@@ -23,19 +23,16 @@
  * if advised of the possibility of such damage.
  */
 
-#include "s-uba-container.h"
+#ifndef S_UBA_CONTAINER_H
+#define S_UBA_CONTAINER_H
 
-int
-main(int argc, char** argv)
-{
-	SRunner* r;
-	int      failed = 0;
+#include <check.h>
+#include <glib/gmacros.h>
 
-	r = srunner_create (uba_container_suite ());
-	srunner_run_all (r, CK_NORMAL);
-	failed = srunner_ntests_failed (r);
-	srunner_free (r);
+G_BEGIN_DECLS
 
-	return failed != 0;
-}
+Suite* uba_container_suite (void);
 
+G_END_DECLS
+
+#endif /* !S_UBA_CONTAINER_H */

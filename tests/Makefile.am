@@ -23,6 +23,11 @@ noinst_PROGRAMS+=\
 	m-mock-objects \
 	m-uba
 
+m_uba_SOURCES=\
+	m-uba.c \
+	s-uba-container.c \
+	s-uba-container.h
+
 m_mock_objects_SOURCES=\
 	m-mock-objects.c \
 	s-mock-dbus-session.c \

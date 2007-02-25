@@ -25,17 +25,8 @@
 
 #include "s-uba-container.h"
 
-int
-main(int argc, char** argv)
+Suite*
+uba_container_suite (void)
 {
-	SRunner* r;
-	int      failed = 0;
-
-	r = srunner_create (uba_container_suite ());
-	srunner_run_all (r, CK_NORMAL);
-	failed = srunner_ntests_failed (r);
-	srunner_free (r);
-
-	return failed != 0;
+	return NULL;
 }
-
