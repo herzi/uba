@@ -8,7 +8,7 @@ libmock_objects_la_SOURCES=\
 noinst_PROGRAMS=\
 	e-mock-dbus-session
 
-e_test_session_SOURCES=\
+e_mock_dbus_session_SOURCES=\
 	e-mock-dbus-session.c
 
 AM_CPPFLAGS=\
