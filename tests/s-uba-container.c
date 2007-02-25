@@ -25,8 +25,12 @@
 
 #include "s-uba-container.h"
 
+#include <uba/uba-container.h>
+
 Suite*
 uba_container_suite (void)
 {
-	return NULL;
+	Suite* self = suite_create (g_type_name (UBA_TYPE_CONTAINER));
+	suite_add_tcase (self, uba_container_scrollable_test ());
+	return self;
 }

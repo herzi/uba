@@ -32,6 +32,7 @@
 G_BEGIN_DECLS
 
 Suite* uba_container_suite (void);
+TCase* uba_container_scrollable_test (void);
 
 G_END_DECLS
 

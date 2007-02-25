@@ -13,6 +13,7 @@ e_mock_dbus_session_SOURCES=\
 	e-mock-dbus-session.c
 
 AM_CPPFLAGS=\
+	-I$(top_srcdir) \
 	$(UBA_CFLAGS)
 LDADD=\
 	libmock-objects.la \
@@ -26,7 +27,8 @@ noinst_PROGRAMS+=\
 m_uba_SOURCES=\
 	m-uba.c \
 	s-uba-container.c \
-	s-uba-container.h
+	s-uba-container.h \
+	t-uba-container-scrollable.c
 
 m_mock_objects_SOURCES=\
 	m-mock-objects.c \

@@ -1,4 +1,4 @@
-/* This file is part of ...
+/* This file is part of the universal business adapter
  *
  * AUTHORS
  *     Sven Herzberg  <herzi@gnome-de.org>
@@ -24,5 +24,12 @@
 #ifndef UBA_CONTAINER_H
 #define UBA_CONTAINER_H
 
+#include <glib-object.h>
+
+G_BEGIN_DECLS
+
+#define UBA_TYPE_CONTAINER G_TYPE_INVALID
+
+G_END_DECLS
 
 #endif /* !UBA_CONTAINER_H */
