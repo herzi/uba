@@ -34,6 +34,7 @@ int
 main(int argc, char** argv)
 {
 	uba_test_session_start ();
+	/* do something with the dbus session */
 	uba_test_session_end ();
 	return 0;
 }
