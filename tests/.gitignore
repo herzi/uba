@@ -4,5 +4,6 @@
 *.lo
 *.la
 e-mock-dbus-session
+e-uba-container
 m-mock-objects
 m-uba

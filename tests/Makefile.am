@@ -20,7 +20,8 @@ LDADD=\
 
 if HAVE_CHECK
 noinst_PROGRAMS+=\
-	m-mock-objects
+	m-mock-objects \
+	m-uba
 
 m_mock_objects_SOURCES=\
 	m-mock-objects.c \
