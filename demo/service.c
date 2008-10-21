@@ -23,10 +23,17 @@
  * if advised of the possibility of such damage.
  */
 
+#include <gtk/gtk.h>
+
 int
 main (int   argc,
       char**argv)
 {
+        GOptionContext* context;
+
+        context = g_option_context_new ("");
+        g_option_context_free (context);
+
         return 0;
 }
 
