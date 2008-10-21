@@ -29,6 +29,7 @@ int
 main (int   argc,
       char**argv)
 {
+        GMainLoop* loop;
         GtkWidget* plug;
         GtkWidget* label;
         gchar* text;
@@ -59,9 +60,13 @@ main (int   argc,
 
         gtk_init (&argc, &argv);
 
+        loop = g_main_loop_new (NULL, FALSE);
+
         plug = gtk_plug_new (socket);
-        g_signal_connect (plug, "destroy",
-                          G_CALLBACK (gtk_main_quit), NULL);
+        g_object_set_data_full (G_OBJECT (plug),
+                                "UbiMainLoop",
+                                loop,
+                                (GDestroyNotify)g_main_loop_quit);
 
         text = g_strdup_printf ("GtkPlug in GtkSocket (%d)",
                                 socket);
@@ -72,7 +77,8 @@ main (int   argc,
 
         gtk_widget_show_all (plug);
 
-        gtk_main ();
+        g_main_loop_run (loop);
+        g_main_loop_unref (loop);
 
         return 0;
 }
