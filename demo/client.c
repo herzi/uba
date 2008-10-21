@@ -30,12 +30,25 @@ main (int   argc,
       char**argv)
 {
         GtkWidget* window;
+        GtkWidget* vbox;
+        GtkWidget* button;
 
         gtk_init (&argc, &argv);
 
         window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
         g_signal_connect (window, "destroy",
                           G_CALLBACK (gtk_main_quit), NULL);
+
+        vbox = gtk_vbox_new (FALSE, 6);
+        gtk_container_add (GTK_CONTAINER (window),
+                           vbox);
+
+        button = gtk_button_new_from_stock (GTK_STOCK_QUIT);
+        g_signal_connect (button, "clicked",
+                          G_CALLBACK (gtk_main_quit), NULL);
+        gtk_box_pack_start (GTK_BOX (vbox),
+                            button,
+                            FALSE, TRUE, 0);
 
         gtk_widget_show_all (window);
         gtk_main ();
