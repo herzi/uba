@@ -24,11 +24,16 @@
 #ifndef UBA_CONTAINER_H
 #define UBA_CONTAINER_H
 
-#include <glib-object.h>
+#include <gtk/gtksocket.h>
 
 G_BEGIN_DECLS
 
-#define UBA_TYPE_CONTAINER G_TYPE_INVALID
+typedef GtkSocket      UbaContainer;
+typedef GtkSocketClass UbaContainerClass;
+
+#define UBA_TYPE_CONTAINER         (uba_container_get_type ())
+
+GType uba_container_get_type (void);
 
 G_END_DECLS
 

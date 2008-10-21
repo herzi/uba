@@ -16,6 +16,7 @@ AM_CPPFLAGS=\
 	-I$(top_srcdir) \
 	$(UBA_CFLAGS)
 LDADD=\
+	$(top_builddir)/uba/libuba.la \
 	libmock-objects.la \
 	$(UBA_LIBS)
 

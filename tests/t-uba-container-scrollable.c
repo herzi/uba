@@ -25,10 +25,20 @@
 
 #include "s-uba-container.h"
 
+#include <uba/uba-container.h>
+
+START_TEST (demo_testcase)
+{
+	//g_print ("%s\n", g_type_name (UBA_TYPE_CONTAINER));
+}
+END_TEST
+
 TCase*
 uba_container_scrollable_test (void)
 {
 	TCase* self = tcase_create ("Adding scrollable widgets to containers");
+	//tcase_add_checked_fixture (self, g_type_init, NULL);
+	tcase_add_test (self, demo_testcase);
 	return self;
 }
 

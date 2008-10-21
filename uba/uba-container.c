@@ -1,4 +1,4 @@
-/* This file is part of ...
+/* This file is part of the universal business adapter
  *
  * AUTHORS
  *     Sven Herzberg  <herzi@gnome-de.org>
@@ -22,4 +22,14 @@
  */
 
 #include "uba-container.h"
+
+G_DEFINE_TYPE (UbaContainer, uba_container, GTK_TYPE_SOCKET);
+
+static void
+uba_container_init (UbaContainer* self)
+{}
+
+static void
+uba_container_class_init (UbaContainerClass* self_class)
+{}
 

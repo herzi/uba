@@ -31,6 +31,9 @@ main(int argc, char** argv)
 	SRunner* r;
 	int      failed = 0;
 
+	/* type system used for the test suite names */
+	g_type_init ();
+
 	r = srunner_create (uba_container_suite ());
 	srunner_run_all (r, CK_NORMAL);
 	failed = srunner_ntests_failed (r);
