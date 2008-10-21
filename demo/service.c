@@ -29,16 +29,22 @@ int
 main (int   argc,
       char**argv)
 {
+        guint64 socket = 0L;
+
         GOptionContext* context;
         GOptionEntry    entries[] = {
-                NULL
+                {"socket", 's', 0, G_OPTION_ARG_INT64, &socket, "description", "SOCKET"},
+                {NULL}
         };
 
         context = g_option_context_new ("");
         g_option_context_add_main_entries (context,
                                            entries,
                                            NULL);
+        g_option_context_parse (context, &argc, &argv, NULL); // FIXME: add error checking
         g_option_context_free (context);
+
+        g_print ("%d\n", socket);
 
         return 0;
 }
