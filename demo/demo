@@ -34,5 +34,5 @@ eval `(cd ${top_builddir} && dbus-launch --sh-syntax --config-file=$(pwd)/demo/s
 ./client
 
 # kill dbus daemon
-#kill $DBUS_SESSION_BUS_PID
+kill $DBUS_SESSION_BUS_PID
 
