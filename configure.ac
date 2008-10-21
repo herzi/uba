@@ -18,7 +18,7 @@ dnl  ----------------------
 dnl | package dependencies |--------------------------------------------------
 dnl  ----------------------
 
-PKG_CHECK_MODULES(UBA,[gtk+-2.0])
+PKG_CHECK_MODULES(UBA,[gtk+-2.0 dbus-glib-1])
 
 dnl  -------------------
 dnl | testing framework |-----------------------------------------------------
