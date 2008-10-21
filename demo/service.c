@@ -29,6 +29,9 @@ int
 main (int   argc,
       char**argv)
 {
+        GtkWidget* plug;
+        GtkWidget* label;
+        gchar* text;
         guint64 socket = 0L;
 
         GOptionContext* context;
@@ -53,6 +56,23 @@ main (int   argc,
         }
 
         g_option_context_free (context);
+
+        gtk_init (&argc, &argv);
+
+        plug = gtk_plug_new (socket);
+        g_signal_connect (plug, "destroy",
+                          G_CALLBACK (gtk_main_quit), NULL);
+
+        text = g_strdup_printf ("GtkPlug in GtkSocket (%d)",
+                                socket);
+        label = gtk_label_new (text);
+        gtk_container_add (GTK_CONTAINER (plug),
+                           label);
+        g_free (text);
+
+        gtk_widget_show_all (plug);
+
+        gtk_main ();
 
         return 0;
 }
