@@ -30,8 +30,14 @@ main (int   argc,
       char**argv)
 {
         GOptionContext* context;
+        GOptionEntry    entries[] = {
+                NULL
+        };
 
         context = g_option_context_new ("");
+        g_option_context_add_main_entries (context,
+                                           entries,
+                                           NULL);
         g_option_context_free (context);
 
         return 0;
