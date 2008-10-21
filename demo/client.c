@@ -32,6 +32,7 @@ main (int   argc,
         GtkWidget* window;
         GtkWidget* vbox;
         GtkWidget* button;
+        GtkWidget* socket;
 
         gtk_init (&argc, &argv);
 
@@ -49,6 +50,10 @@ main (int   argc,
         gtk_box_pack_start (GTK_BOX (vbox),
                             button,
                             FALSE, TRUE, 0);
+
+        socket = gtk_socket_new ();
+        gtk_container_add (GTK_CONTAINER (vbox),
+                           socket);
 
         gtk_widget_show_all (window);
         gtk_main ();
