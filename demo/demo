@@ -23,6 +23,16 @@
 # otherwise) arising in any way out of the use of this software, even
 # if advised of the possibility of such damage.
 
+. demo.config
 
+# start dbus daemon
+eval `(cd ${top_builddir} && dbus-launch --sh-syntax --config-file=$(pwd)/demo/session.conf)`
+
+# FIXME: copy trap stuff from https://stage.maemo.org/svn/maemo/projects/haf/branches/dbus/0.61-osso2/tools/run-with-tmp-session-bus.sh
+
+# start demo client
 ./client
+
+# kill dbus daemon
+#kill $DBUS_SESSION_BUS_PID
 

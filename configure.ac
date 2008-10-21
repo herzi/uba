@@ -37,6 +37,9 @@ dnl  ---------------------
 AC_CONFIG_FILES([
 	Makefile
         demo/Makefile
+        demo/demo.config
+        demo/session.conf
+        demo/services/eu.adeal.ubi.demo.service
 	tests/Makefile
 	uba/Makefile
 ])

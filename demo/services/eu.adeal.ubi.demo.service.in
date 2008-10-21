@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=eu.adeal.ubi.demo
+Exec=@builddir@/demo/service

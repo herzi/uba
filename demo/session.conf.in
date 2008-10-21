@@ -1,0 +1,11 @@
+<!-- vim:set ft=xml sw=4: -->
+<!DOCTYPE busconfig PUBLIC "-//freedesktop//DTD D-Bus Bus Configuration 1.0//EN"
+  "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
+
+<busconfig>
+    <type>session</type>
+
+    <listen>unix:tmpdir=/tmp</listen>
+
+    <servicedir>@top_srcdir@/services</servicedir>
+</busconfig>
