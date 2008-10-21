@@ -1,3 +1,4 @@
 SUBDIRS=\
 	uba \
+	demo \
 	tests

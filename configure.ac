@@ -36,6 +36,7 @@ dnl  ---------------------
 
 AC_CONFIG_FILES([
 	Makefile
+        demo/Makefile
 	tests/Makefile
 	uba/Makefile
 ])
