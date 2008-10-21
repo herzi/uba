@@ -23,15 +23,19 @@
  * if advised of the possibility of such damage.
  */
 
+#include <dbus/dbus.h>
+#include <dbus/dbus-glib.h>
 #include <gtk/gtk.h>
 
 int
 main (int   argc,
       char**argv)
 {
+        DBusConnection* bus;
         GMainLoop* loop;
         GtkWidget* plug;
         GtkWidget* label;
+        DBusError  error;
         gchar* text;
         guint64 socket = 0L;
 
@@ -57,6 +61,17 @@ main (int   argc,
         }
 
         g_option_context_free (context);
+
+        dbus_error_init (&error);
+        bus = dbus_bus_get (DBUS_BUS_SESSION, &error);
+        if (!bus) {
+                g_warning ("Failed to connect to dbus session bus: %s",
+                           error.message);
+                dbus_error_free (&error);
+                return 1;
+        }
+
+        dbus_connection_setup_with_g_main (bus, NULL);
 
         gtk_init (&argc, &argv);
 
