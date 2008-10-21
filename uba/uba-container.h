@@ -33,7 +33,8 @@ typedef GtkSocketClass UbaContainerClass;
 
 #define UBA_TYPE_CONTAINER         (uba_container_get_type ())
 
-GType uba_container_get_type (void);
+GType      uba_container_get_type (void);
+GtkWidget* uba_container_new      (void);
 
 G_END_DECLS
 

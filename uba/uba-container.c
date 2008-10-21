@@ -33,3 +33,12 @@ static void
 uba_container_class_init (UbaContainerClass* self_class)
 {}
 
+/* Public API Implementation */
+
+GtkWidget*
+uba_container_new (void)
+{
+        return g_object_new (UBA_TYPE_CONTAINER,
+                             NULL);
+}
+
