@@ -33,6 +33,7 @@ main (int   argc,
         GtkWidget* vbox;
         GtkWidget* button;
         GtkWidget* socket;
+        gchar    * command;
 
         gtk_init (&argc, &argv);
 
@@ -54,6 +55,13 @@ main (int   argc,
         socket = gtk_socket_new ();
         gtk_container_add (GTK_CONTAINER (vbox),
                            socket);
+
+        command = g_strdup_printf ("./service --socket %d",
+                                   gtk_socket_get_id (GTK_SOCKET (socket)));
+        gdk_spawn_command_line_on_screen (gtk_widget_get_screen (socket),
+                                          command,
+                                          NULL); // FIXME: add error checking
+        g_free (command);
 
         gtk_widget_show_all (window);
         gtk_main ();
