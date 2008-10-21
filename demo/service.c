@@ -33,7 +33,8 @@ main (int   argc,
 
         GOptionContext* context;
         GOptionEntry    entries[] = {
-                {"socket", 's', 0, G_OPTION_ARG_INT64, &socket, "description", "SOCKET"},
+                {"socket", 's', 0, G_OPTION_ARG_INT64, &socket,
+                 "The socket id of the parent window", "SOCKET"},
                 {NULL}
         };
 
@@ -42,9 +43,16 @@ main (int   argc,
                                            entries,
                                            NULL);
         g_option_context_parse (context, &argc, &argv, NULL); // FIXME: add error checking
-        g_option_context_free (context);
 
-        g_print ("%d\n", socket);
+        if (!socket) {
+                gchar* help = g_option_context_get_help (context, TRUE, NULL);
+                g_printerr ("%s", help);
+                g_free (help);
+                g_option_context_free (context);
+                return 1;
+        }
+
+        g_option_context_free (context);
 
         return 0;
 }
