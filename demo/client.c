@@ -23,6 +23,8 @@
  * if advised of the possibility of such damage.
  */
 
+#include <dbus/dbus.h>
+#include <dbus/dbus-glib.h>
 #include <gtk/gtk.h>
 #include "uba-container.h"
 
@@ -30,13 +32,24 @@ int
 main (int   argc,
       char**argv)
 {
+        DBusConnection* bus;
         GtkWidget* window;
         GtkWidget* vbox;
         GtkWidget* button;
         GtkWidget* socket;
+        DBusError       error;
         gchar    * command;
 
+        dbus_error_init (&error);
+        bus = dbus_bus_get (DBUS_BUS_SESSION, &error);
+        if (!bus) {
+                g_warning ("eeek!");
+                return 1;
+        }
+
         gtk_init (&argc, &argv);
+
+        dbus_connection_setup_with_g_main (bus, NULL);
 
         window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
         g_signal_connect (window, "destroy",
