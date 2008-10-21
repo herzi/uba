@@ -24,6 +24,7 @@
  */
 
 #include <gtk/gtk.h>
+#include "uba-container.h"
 
 int
 main (int   argc,
@@ -52,7 +53,7 @@ main (int   argc,
                             button,
                             FALSE, TRUE, 0);
 
-        socket = gtk_socket_new ();
+        socket = uba_container_new ();
         gtk_container_add (GTK_CONTAINER (vbox),
                            socket);
 
