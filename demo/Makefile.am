@@ -3,6 +3,12 @@ noinst_PROGRAMS=\
 	service \
 	$(NULL)
 
+service_SOURCES=\
+	service.c \
+	uba-service.c \
+	uba-service.h \
+	$(NULL)
+
 AM_CPPFLAGS=\
 	$(UBA_CFLAGS) \
 	-I$(top_srcdir)/uba
