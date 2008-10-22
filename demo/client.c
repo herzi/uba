@@ -32,24 +32,23 @@ int
 main (int   argc,
       char**argv)
 {
-        DBusConnection* bus;
+        DBusGConnection* bus;
         GtkWidget* window;
         GtkWidget* vbox;
         GtkWidget* button;
         GtkWidget* socket;
-        DBusError       error;
+        GError         * error = NULL;
         gchar    * command;
 
-        dbus_error_init (&error);
-        bus = dbus_bus_get (DBUS_BUS_SESSION, &error);
+        g_type_init ();
+
+        bus = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
         if (!bus) {
                 g_warning ("eeek!");
                 return 1;
         }
 
         gtk_init (&argc, &argv);
-
-        dbus_connection_setup_with_g_main (bus, NULL);
 
         window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
         g_signal_connect (window, "destroy",
