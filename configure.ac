@@ -30,6 +30,12 @@ PKG_CHECK_MODULES(CHECK,[check >= 0.9.4],:,[
 
 AM_CONDITIONAL([HAVE_CHECK],[test "x$CHECK_CFLAGS" != "x" -o "x$CHECK_LIBS" != "x"])
 
+AC_MSG_CHECKING([for fully qualified build folder])
+UBA_TOP_BUILD_DIR=`pwd`
+AC_MSG_RESULT([$UBA_TOP_BUILD_DIR])
+AC_SUBST(UBA_TOP_BUILD_DIR)
+# foo=~/Audio/../Imendio.dmg; pushd .; cd `dirname $foo`; bar=`pwd`/`basename $foo`; popd; echo $bar
+
 dnl  ---------------------
 dnl | write configuration |---------------------------------------------------
 dnl  ---------------------
