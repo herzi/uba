@@ -16,5 +16,5 @@
         <allow own="*"/>
     </policy>
 
-    <servicedir>@top_srcdir@/services</servicedir>
+    <servicedir>@top_srcdir@/demo/services</servicedir>
 </busconfig>
