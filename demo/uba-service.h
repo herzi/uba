@@ -1,4 +1,4 @@
-/* This file is part of ...
+/* This file is part of universal business adapter
  *
  * AUTHORS
  *     Sven Herzberg  <sven@imendio.com>
@@ -26,5 +26,32 @@
 #ifndef UBA_SERVICE_H
 #define UBA_SERVICE_H
 
+#include <glib-object.h>
+
+G_BEGIN_DECLS
+
+typedef struct _UbaService        UbaService;
+typedef struct _UbaServicePrivate UbaServicePrivate;
+typedef struct _UbaServiceClass   UbaServiceClass;
+
+#define UBA_TYPE_SERVICE         (uba_service_get_type ())
+#define UBA_SERVICE(i)           (G_TYPE_CHECK_INSTANCE_CAST ((i), UBA_TYPE_SERVICE, UbaService))
+#define UBA_SERVICE_CLASS(c)     (G_TYPE_CHECK_CLASS_CAST ((c), UBA_TYPE_SERVICE, UbaServiceClass))
+#define UBA_IS_SERVICE(i)        (G_TYPE_CHECK_INSTANCE_TYPE ((i), UBA_TYPE_SERVICE))
+#define UBA_IS_SERVICE_CLASS(c)  (G_TYPE_CHECK_CLASS_TYPE ((c), UBA_TYPE_SERVICE))
+#define UBA_SERVICE_GET_CLASS(i) (G_TYPE_INSTANCE_GET_CLASS ((i), UBA_TYPE_SERVICE, UbaServiceClass))
+
+GType       uba_service_get_type (void);
+
+struct _UbaService {
+        GObject            base_instance;
+        UbaServicePrivate* _private;
+};
+
+struct _UbaServiceClass {
+        GObjectClass       base_class;
+};
+
+G_END_DECLS
 
 #endif /* !UBA_SERVICE_H */

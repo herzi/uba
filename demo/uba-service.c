@@ -1,4 +1,4 @@
-/* This file is part of ...
+/* This file is part of universal business adapter
  *
  * AUTHORS
  *     Sven Herzberg  <sven@imendio.com>
@@ -24,4 +24,14 @@
  */
 
 #include "uba-service.h"
+
+G_DEFINE_TYPE (UbaService, uba_service, G_TYPE_OBJECT);
+
+static void
+uba_service_init (UbaService* self)
+{}
+
+static void
+uba_service_class_init (UbaServiceClass* self_class)
+{}
 
