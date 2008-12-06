@@ -34,9 +34,38 @@ my_log_func (gchar const*    domain,
              gchar const*    message,
              gpointer        user_data G_GNUC_UNUSED)
 {
-        int priority = LOG_DEBUG;
+        gchar const* severity = "debug";
+        int          priority = LOG_DEBUG;
 
-        syslog (priority, "%s: %s", domain, message);
+        if ((flags & G_LOG_LEVEL_DEBUG) != 0) {
+                /* already set */
+        }
+        if ((flags & G_LOG_LEVEL_INFO) != 0) {
+                priority = LOG_INFO;
+                severity = "info";
+        }
+        if ((flags & G_LOG_LEVEL_MESSAGE) != 0) {
+                priority = LOG_NOTICE;
+                severity = "message";
+        }
+        if ((flags & G_LOG_LEVEL_WARNING) != 0) {
+                priority = LOG_WARNING;
+                severity = "warning";
+        }
+        if ((flags & G_LOG_LEVEL_CRITICAL) != 0) {
+                priority = LOG_CRIT;
+                severity = "critical";
+        }
+        if ((flags & G_LOG_LEVEL_CRITICAL) != 0) {
+                priority = LOG_ERR;
+                severity = "error";
+        }
+
+        syslog (priority,
+                "%s (%s): %s",
+                domain,
+                severity,
+                message);
 }
 
 int
