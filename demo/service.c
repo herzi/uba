@@ -23,9 +23,21 @@
  * if advised of the possibility of such damage.
  */
 
+#include <syslog.h>
 #include <dbus/dbus.h>
 #include <dbus/dbus-glib.h>
 #include <gtk/gtk.h>
+
+static void
+my_log_func (gchar const*    domain,
+             GLogLevelFlags  flags,
+             gchar const*    message,
+             gpointer        user_data G_GNUC_UNUSED)
+{
+        int priority = LOG_DEBUG;
+
+        syslog (priority, "%s: %s", domain, message);
+}
 
 int
 main (int   argc,
@@ -45,6 +57,14 @@ main (int   argc,
                  "The socket id of the parent window", "SOCKET"},
                 {NULL}
         };
+
+        openlog (g_get_prgname (),
+                 LOG_CONS, LOG_USER);
+
+        g_log_set_default_handler (my_log_func,
+                                   NULL);
+
+        syslog (LOG_INFO, "started");
 
         context = g_option_context_new ("");
         g_option_context_add_main_entries (context,
@@ -94,6 +114,8 @@ main (int   argc,
 
         g_main_loop_run (loop);
         g_main_loop_unref (loop);
+
+        closelog ();
 
         return 0;
 }
