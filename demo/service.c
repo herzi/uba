@@ -26,6 +26,7 @@
 #include <syslog.h>
 #include <dbus/dbus.h>
 #include <dbus/dbus-glib.h>
+#include <dbus/dbus-glib-lowlevel.h>
 #include <gtk/gtk.h>
 
 #include "uba-service.h"
@@ -110,6 +111,19 @@ main (int   argc,
                            error->message);
                 g_clear_error (&error);
                 return 1;
+        }
+
+        switch (dbus_bus_request_name (dbus_g_connection_get_connection (bus),
+                                       "eu.adeal.uba.demo",
+                                       DBUS_NAME_FLAG_REPLACE_EXISTING,
+                                       NULL))
+        {
+        case DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER:
+                /* happy */
+                break;
+        default:
+                /* unhappy */
+                break;
         }
 
         gtk_init (&argc, &argv);
