@@ -27,13 +27,16 @@
 
 #include <gtk/gtk.h>
 
+#include "uba-service-glue.h"
+
 struct _UbaServicePrivate {
         GMainLoop* loop;
 };
 
 #define PRIV(i) ((UbaService*)(i))->_private
 
-G_DEFINE_TYPE (UbaService, uba_service, G_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_CODE (UbaService, uba_service, G_TYPE_OBJECT,
+                         dbus_g_object_type_install_info (g_define_type_id, &dbus_glib_uba_service_object_info););
 
 static void
 uba_service_init (UbaService* self)
