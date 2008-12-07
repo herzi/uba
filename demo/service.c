@@ -72,11 +72,11 @@ int
 main (int   argc,
       char**argv)
 {
-        DBusConnection* bus;
-        GMainLoop* loop;
+        DBusGConnection* bus;
+        GMainLoop      * loop;
+        GError         * error = NULL;
         GtkWidget* plug;
         GtkWidget* label;
-        DBusError  error;
         gchar* text;
         guint64 socket = 0L;
 
@@ -111,16 +111,13 @@ main (int   argc,
 
         g_option_context_free (context);
 
-        dbus_error_init (&error);
-        bus = dbus_bus_get (DBUS_BUS_SESSION, &error);
+        bus = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
         if (!bus) {
                 g_warning ("Failed to connect to dbus session bus: %s",
-                           error.message);
-                dbus_error_free (&error);
+                           error->message);
+                g_clear_error (&error);
                 return 1;
         }
-
-        dbus_connection_setup_with_g_main (bus, NULL);
 
         gtk_init (&argc, &argv);
 
