@@ -28,17 +28,19 @@
 #include <gtk/gtk.h>
 #include "uba-container.h"
 
+#include "uba-service-binding.h"
+
 int
 main (int   argc,
       char**argv)
 {
         DBusGConnection* bus;
+        DBusGProxy     * proxy;
         GtkWidget* window;
         GtkWidget* vbox;
         GtkWidget* button;
         GtkWidget* socket;
         GError         * error = NULL;
-        gchar    * command;
 
         g_type_init ();
 
@@ -69,12 +71,20 @@ main (int   argc,
         gtk_container_add (GTK_CONTAINER (vbox),
                            socket);
 
-        command = g_strdup_printf ("./service --socket %d",
-                                   gtk_socket_get_id (GTK_SOCKET (socket)));
-        gdk_spawn_command_line_on_screen (gtk_widget_get_screen (socket),
-                                          command,
-                                          NULL); // FIXME: add error checking
-        g_free (command);
+        proxy = dbus_g_proxy_new_for_name (bus,
+                                           "eu.adeal.uba.demo",
+                                           "/eu/adeal/uba/demo",
+                                           "eu.adeal.uba.Service");
+        eu_adeal_uba_Service_connect (proxy,
+                                      gtk_socket_get_id (GTK_SOCKET (socket)),
+                                      &error);
+
+        if (error) {
+                g_warning ("%s", error->message);
+                g_clear_error (&error);
+
+                return 1;
+        }
 
         gtk_widget_show_all (window);
         gtk_main ();
