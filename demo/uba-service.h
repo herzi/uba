@@ -42,6 +42,7 @@ typedef struct _UbaServiceClass   UbaServiceClass;
 #define UBA_SERVICE_GET_CLASS(i) (G_TYPE_INSTANCE_GET_CLASS ((i), UBA_TYPE_SERVICE, UbaServiceClass))
 
 GType       uba_service_get_type (void);
+UbaService* uba_service_new      (void);
 
 struct _UbaService {
         GObject            base_instance;

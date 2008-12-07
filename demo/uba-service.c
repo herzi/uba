@@ -35,3 +35,10 @@ static void
 uba_service_class_init (UbaServiceClass* self_class)
 {}
 
+UbaService*
+uba_service_new (void)
+{
+        return g_object_new (UBA_TYPE_SERVICE,
+                             NULL);
+}
+
