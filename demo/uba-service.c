@@ -42,8 +42,24 @@ uba_service_init (UbaService* self)
 }
 
 static void
+service_dispose (GObject* object)
+{
+        /* FIXME: move into finalize */
+        if (PRIV (object)->loop) {
+                uba_service_set_main_loop (UBA_SERVICE (object),
+                                           NULL);
+        }
+
+        G_OBJECT_CLASS (uba_service_parent_class)->dispose (object);
+}
+
+static void
 uba_service_class_init (UbaServiceClass* self_class)
 {
+        GObjectClass* object_class = G_OBJECT_CLASS (self_class);
+
+        object_class->dispose = service_dispose;
+
         g_type_class_add_private (self_class, sizeof (UbaServicePrivate));
 }
 
@@ -52,5 +68,21 @@ uba_service_new (void)
 {
         return g_object_new (UBA_TYPE_SERVICE,
                              NULL);
+}
+
+void
+uba_service_set_main_loop (UbaService* self,
+                           GMainLoop * loop)
+{
+        g_return_if_fail (UBA_IS_SERVICE (self));
+
+        if (PRIV (self)->loop) {
+                g_main_loop_unref (PRIV (self)->loop);
+                PRIV (self)->loop = NULL;
+        }
+
+        if (loop) {
+                PRIV (self)->loop = g_main_loop_ref (loop);
+        }
 }
 
