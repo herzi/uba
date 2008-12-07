@@ -25,6 +25,8 @@
 
 #include "uba-service.h"
 
+#include <gtk/gtk.h>
+
 struct _UbaServicePrivate {
         GMainLoop* loop;
 };
@@ -68,7 +70,26 @@ uba_service_connect (UbaService* self,
                      guint64     socket_id,
                      GError    **error)
 {
+        GtkWidget* plug;
+        GtkWidget* label;
+        gchar* text;
+
         g_return_val_if_fail (UBA_IS_SERVICE (self), FALSE);
+
+        plug = gtk_plug_new (socket_id);
+        g_object_set_data_full (G_OBJECT (plug),
+                                "UbaMainLoop",
+                                PRIV (self)->loop,
+                                (GDestroyNotify)g_main_loop_quit);
+
+        text = g_strdup_printf ("GtkPlug in GtkSocket (%d)",
+                                socket_id);
+        label = gtk_label_new (text);
+        gtk_container_add (GTK_CONTAINER (plug),
+                           label);
+        g_free (text);
+
+        gtk_widget_show_all (plug);
 
         return TRUE;
 }

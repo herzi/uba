@@ -78,9 +78,6 @@ main (int   argc,
         UbaService     * service;
         GMainLoop      * loop;
         GError         * error = NULL;
-        GtkWidget* plug;
-        GtkWidget* label;
-        gchar* text;
         guint64 socket = 0L;
 
         GOptionContext* context;
@@ -132,21 +129,6 @@ main (int   argc,
         uba_service_connect (service,
                              socket,
                              NULL);
-
-        plug = gtk_plug_new (socket);
-        g_object_set_data_full (G_OBJECT (plug),
-                                "UbiMainLoop",
-                                loop,
-                                (GDestroyNotify)g_main_loop_quit);
-
-        text = g_strdup_printf ("GtkPlug in GtkSocket (%d)",
-                                socket);
-        label = gtk_label_new (text);
-        gtk_container_add (GTK_CONTAINER (plug),
-                           label);
-        g_free (text);
-
-        gtk_widget_show_all (plug);
 
         g_main_loop_run (loop);
         g_main_loop_unref (loop);
