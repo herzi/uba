@@ -25,15 +25,27 @@
 
 #include "uba-service.h"
 
+struct _UbaServicePrivate {
+        GMainLoop* loop;
+};
+
+#define PRIV(i) ((UbaService*)(i))->_private
+
 G_DEFINE_TYPE (UbaService, uba_service, G_TYPE_OBJECT);
 
 static void
 uba_service_init (UbaService* self)
-{}
+{
+        PRIV (self) = G_TYPE_INSTANCE_GET_PRIVATE (self,
+                                                   UBA_TYPE_SERVICE,
+                                                   UbaServicePrivate);
+}
 
 static void
 uba_service_class_init (UbaServiceClass* self_class)
-{}
+{
+        g_type_class_add_private (self_class, sizeof (UbaServicePrivate));
+}
 
 UbaService*
 uba_service_new (void)
