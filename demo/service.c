@@ -28,6 +28,8 @@
 #include <dbus/dbus-glib.h>
 #include <gtk/gtk.h>
 
+#include "uba-service.h"
+
 static void
 my_log_func (gchar const*    domain,
              GLogLevelFlags  flags,
@@ -73,6 +75,7 @@ main (int   argc,
       char**argv)
 {
         DBusGConnection* bus;
+        UbaService     * service;
         GMainLoop      * loop;
         GError         * error = NULL;
         GtkWidget* plug;
@@ -123,6 +126,8 @@ main (int   argc,
 
         loop = g_main_loop_new (NULL, FALSE);
 
+        service = uba_service_new ();
+
         plug = gtk_plug_new (socket);
         g_object_set_data_full (G_OBJECT (plug),
                                 "UbiMainLoop",
@@ -140,6 +145,8 @@ main (int   argc,
 
         g_main_loop_run (loop);
         g_main_loop_unref (loop);
+
+        g_object_unref (service);
 
         closelog ();
 
