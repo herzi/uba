@@ -129,6 +129,10 @@ main (int   argc,
         service = uba_service_new ();
         uba_service_set_main_loop (service, loop);
 
+        uba_service_connect (service,
+                             socket,
+                             NULL);
+
         plug = gtk_plug_new (socket);
         g_object_set_data_full (G_OBJECT (plug),
                                 "UbiMainLoop",

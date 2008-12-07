@@ -43,6 +43,9 @@ typedef struct _UbaServiceClass   UbaServiceClass;
 
 GType       uba_service_get_type      (void);
 UbaService* uba_service_new           (void);
+gboolean    uba_service_connect       (UbaService* self,
+                                       guint64     socket_id,
+                                       GError    **error);
 void        uba_service_set_main_loop (UbaService* self,
                                        GMainLoop * loop);
 

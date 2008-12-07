@@ -63,6 +63,16 @@ uba_service_class_init (UbaServiceClass* self_class)
         g_type_class_add_private (self_class, sizeof (UbaServicePrivate));
 }
 
+gboolean
+uba_service_connect (UbaService* self,
+                     guint64     socket_id,
+                     GError    **error)
+{
+        g_return_val_if_fail (UBA_IS_SERVICE (self), FALSE);
+
+        return TRUE;
+}
+
 UbaService*
 uba_service_new (void)
 {
