@@ -100,16 +100,9 @@ main (int   argc,
                                            entries,
                                            NULL);
         g_option_context_parse (context, &argc, &argv, NULL); // FIXME: add error checking
-
-        if (!socket) {
-                gchar* help = g_option_context_get_help (context, TRUE, NULL);
-                g_printerr ("%s", help);
-                g_free (help);
-                g_option_context_free (context);
-                return 1;
-        }
-
         g_option_context_free (context);
+
+        g_type_init ();
 
         bus = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
         if (!bus) {
@@ -126,9 +119,15 @@ main (int   argc,
         service = uba_service_new ();
         uba_service_set_main_loop (service, loop);
 
-        uba_service_connect (service,
-                             socket,
-                             NULL);
+        if (socket) {
+                uba_service_connect (service,
+                                     socket,
+                                     NULL);
+        } else {
+                dbus_g_connection_register_g_object (bus,
+                                                     "/eu/adeal/uba/demo",
+                                                     G_OBJECT (service));
+        }
 
         g_main_loop_run (loop);
         g_main_loop_unref (loop);
