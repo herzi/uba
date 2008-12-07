@@ -81,13 +81,6 @@ main (int   argc,
         GError         * error = NULL;
         guint64 socket = 0L;
 
-        GOptionContext* context;
-        GOptionEntry    entries[] = {
-                {"socket", 's', 0, G_OPTION_ARG_INT64, &socket,
-                 "The socket id of the parent window", "SOCKET"},
-                {NULL}
-        };
-
         openlog (g_get_prgname (),
                  LOG_CONS, LOG_USER);
 
@@ -95,13 +88,6 @@ main (int   argc,
                                    NULL);
 
         syslog (LOG_INFO, "started");
-
-        context = g_option_context_new ("");
-        g_option_context_add_main_entries (context,
-                                           entries,
-                                           NULL);
-        g_option_context_parse (context, &argc, &argv, NULL); // FIXME: add error checking
-        g_option_context_free (context);
 
         g_type_init ();
 
@@ -133,15 +119,9 @@ main (int   argc,
         service = uba_service_new ();
         uba_service_set_main_loop (service, loop);
 
-        if (socket) {
-                uba_service_connect (service,
-                                     socket,
-                                     NULL);
-        } else {
-                dbus_g_connection_register_g_object (bus,
-                                                     "/eu/adeal/uba/demo",
-                                                     G_OBJECT (service));
-        }
+        dbus_g_connection_register_g_object (bus,
+                                             "/eu/adeal/uba/demo",
+                                             G_OBJECT (service));
 
         g_main_loop_run (loop);
         g_main_loop_unref (loop);
