@@ -79,7 +79,6 @@ main (int   argc,
         UbaService     * service;
         GMainLoop      * loop;
         GError         * error = NULL;
-        guint64 socket = 0L;
 
         openlog (g_get_prgname (),
                  LOG_CONS, LOG_USER);
