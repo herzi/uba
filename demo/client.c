@@ -86,6 +86,25 @@ main (int   argc,
                 return 1;
         }
 
+        socket = uba_container_new ();
+        gtk_container_add (GTK_CONTAINER (vbox),
+                           socket);
+
+        proxy = dbus_g_proxy_new_for_name (bus,
+                                           "eu.adeal.uba.demo",
+                                           "/eu/adeal/uba/demo",
+                                           "eu.adeal.uba.Service");
+        eu_adeal_uba_Service_connect (proxy,
+                                      gtk_socket_get_id (GTK_SOCKET (socket)),
+                                      &error);
+
+        if (error) {
+                g_warning ("%s", error->message);
+                g_clear_error (&error);
+
+                return 1;
+        }
+
         gtk_widget_show_all (window);
         gtk_main ();
 
