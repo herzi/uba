@@ -45,6 +45,7 @@ AC_CONFIG_FILES([
         demo/Makefile
         demo/demo.config
         demo/session.conf
+        demo/services/Makefile
         demo/services/eu.adeal.ubi.demo.service
 	tests/Makefile
 	uba/Makefile

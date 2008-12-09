@@ -85,7 +85,7 @@ uba_service_connect (UbaService* self,
                                 PRIV (self)->loop,
                                 (GDestroyNotify)g_main_loop_quit);
 
-        text = g_strdup_printf ("GtkPlug in GtkSocket (%d)",
+        text = g_strdup_printf ("UBA Demo: GtkPlug in GtkSocket (%d)",
                                 socket_id);
         label = gtk_label_new (text);
         gtk_container_add (GTK_CONTAINER (plug),

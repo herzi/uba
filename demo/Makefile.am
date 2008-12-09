@@ -1,6 +1,8 @@
+SUBDIRS=services
+
 noinst_PROGRAMS=\
 	client \
-	service \
+	uba-demo \
 	$(NULL)
 
 BUILT_SOURCES=\
@@ -8,7 +10,7 @@ BUILT_SOURCES=\
 	uba-service-glue.h \
 	$(NULL)
 
-service_SOURCES=\
+uba_demo_SOURCES=\
 	$(BUILT_SOURCES) \
 	service.c \
 	uba-service.c \

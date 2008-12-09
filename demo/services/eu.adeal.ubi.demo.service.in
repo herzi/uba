@@ -1,3 +1,3 @@
 [D-BUS Service]
 Name=eu.adeal.uba.demo
-Exec=@UBA_TOP_BUILD_DIR@/demo/service
+Exec=@UBA_TOP_BUILD_DIR@/demo/uba-demo
