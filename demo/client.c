@@ -80,7 +80,7 @@ main (int   argc,
                                       &error);
 
         if (error) {
-                g_warning ("%s", error->message);
+                g_warning ("error getting the demo: %s", error->message);
                 g_clear_error (&error);
 
                 return 1;
@@ -91,15 +91,15 @@ main (int   argc,
                            socket);
 
         proxy = dbus_g_proxy_new_for_name (bus,
-                                           "eu.adeal.uba.demo",
-                                           "/eu/adeal/uba/demo",
+                                           "eu.adeal.uba.example",
+                                           "/eu/adeal/uba/example",
                                            "eu.adeal.uba.Service");
         eu_adeal_uba_Service_connect (proxy,
                                       gtk_socket_get_id (GTK_SOCKET (socket)),
                                       &error);
 
         if (error) {
-                g_warning ("%s", error->message);
+                g_warning ("error getting the example: %s", error->message);
                 g_clear_error (&error);
 
                 return 1;
