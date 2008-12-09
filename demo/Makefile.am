@@ -12,7 +12,7 @@ BUILT_SOURCES=\
 
 uba_demo_SOURCES=\
 	$(BUILT_SOURCES) \
-	service.c \
+	uba-demo.c \
 	uba-service.c \
 	uba-service.h \
 	$(NULL)
