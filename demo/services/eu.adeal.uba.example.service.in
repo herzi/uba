@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=eu.adeal.uba.example
+Exec=@UBA_TOP_BUILD_DIR@/demo/uba-example
