@@ -3,6 +3,7 @@ SUBDIRS=services
 noinst_PROGRAMS=\
 	client \
 	uba-demo \
+	uba-example \
 	$(NULL)
 
 BUILT_SOURCES=\
@@ -13,6 +14,13 @@ BUILT_SOURCES=\
 uba_demo_SOURCES=\
 	$(BUILT_SOURCES) \
 	uba-demo.c \
+	uba-service.c \
+	uba-service.h \
+	$(NULL)
+
+uba_example_SOURCES=\
+	$(BUILT_SOURCES) \
+	uba-example.c \
 	uba-service.c \
 	uba-service.h \
 	$(NULL)
