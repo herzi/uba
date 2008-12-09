@@ -22,12 +22,38 @@
  */
 
 #include <glib.h>
+#include <dbus/dbus-glib.h>
 
 int
 main (int   argc,
       char**argv)
 {
-        GMainLoop* loop;
+        DBusGConnection* bus;
+        GMainLoop      * loop;
+        GError         * error = NULL;
+
+        g_type_init ();
+
+        bus = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
+        if (error) {
+                g_warning ("Failed to connect to dbus session bus: %s",
+                           error->message);
+                g_clear_error (&error);
+                return 1;
+        }
+
+        switch (dbus_bus_request_name (dbus_g_connection_get_connection (bus),
+                                       "eu.adeal.uba.example",
+                                       DBUS_NAME_FLAG_REPLACE_EXISTING,
+                                       NULL))
+        {
+        case DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER:
+                /* happy */
+                break;
+        default:
+                /* unhappy */
+                break;
+        }
 
         loop = g_main_loop_new (NULL, FALSE);
 
