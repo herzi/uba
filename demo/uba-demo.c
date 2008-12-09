@@ -23,6 +23,8 @@
  * if advised of the possibility of such damage.
  */
 
+/* UBA Demo: create a simple label containing information about the embedding */
+
 #include <syslog.h>
 #include <dbus/dbus.h>
 #include <dbus/dbus-glib.h>
