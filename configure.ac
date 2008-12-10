@@ -18,6 +18,7 @@ dnl  ----------------------
 dnl | package dependencies |--------------------------------------------------
 dnl  ----------------------
 
+AM_PATH_GLIB_2_0
 PKG_CHECK_MODULES(UBA,[gtk+-2.0 dbus-glib-1])
 
 dnl  -------------------
