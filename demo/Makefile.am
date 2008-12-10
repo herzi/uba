@@ -7,6 +7,8 @@ noinst_PROGRAMS=\
 	$(NULL)
 
 BUILT_SOURCES=\
+	uba-marshallers.c \
+	uba-marshallers.h \
 	uba-service-binding.h \
 	uba-service-glue.h \
 	$(NULL)
@@ -31,6 +33,19 @@ uba-service-glue.h: UbaService.xml Makefile
 uba-service-binding.h: UbaService.xml Makefile
 	dbus-binding-tool --mode=glib-client $< > $@
 
+uba-marshallers.h: $(MARSHALLERS) Makefile
+	(cd $(srcdir) && \
+	$(GLIB_GENMARSHAL) --prefix=uba_marshal $< --header) > xgen-$@ \
+	&& (cmp -s xgen-$@ $@ || cp xgen-$@ $@) \
+	&& rm -f xgen-$@ xgen-$@~
+
+uba-marshallers.c: $(MARSHALLERS) Makefile
+	(cd $(srcdir) && \
+	echo "#include \"uba-marshallers.h\""; \
+	$(GLIB_GENMARSHAL) --prefix=uba_marshal $< --body) > xgen-$@ \
+	&& (cmp -s xgen-$@ $@ || cp xgen-$@ $@) \
+	&& rm -f xgen-$@ xgen-$@~
+
 AM_CPPFLAGS=\
 	$(UBA_CFLAGS) \
 	-I$(top_srcdir)/uba
@@ -38,4 +53,13 @@ AM_CPPFLAGS=\
 LDADD=\
 	$(UBA_LIBS) \
 	../uba/libuba.la \
+	$(NULL)
+
+CLEANFILES=$(BUILT_SOURCES)
+
+MARSHALLERS=uba-marshallers.list
+
+EXTRA_DIST=\
+	$(MARSHALLERS) \
+	UbaService.xml \
 	$(NULL)
