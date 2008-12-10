@@ -27,13 +27,21 @@
 
 #include <gtk/gtk.h>
 
+#include "uba-marshallers.h"
 #include "uba-service-glue.h"
+
+enum {
+        CONNECT,
+        N_SIGNALS
+};
 
 struct _UbaServicePrivate {
         GMainLoop* loop;
 };
 
 #define PRIV(i) ((UbaService*)(i))->_private
+
+static guint uba_service_signals[N_SIGNALS] = {0};
 
 G_DEFINE_TYPE_WITH_CODE (UbaService, uba_service, G_TYPE_OBJECT,
                          dbus_g_object_type_install_info (g_define_type_id, &dbus_glib_uba_service_object_info););
@@ -64,6 +72,24 @@ uba_service_class_init (UbaServiceClass* self_class)
         GObjectClass* object_class = G_OBJECT_CLASS (self_class);
 
         object_class->dispose = service_dispose;
+
+        /* UbaService::connect
+         *
+         * This signal gets emitted once the service should create a new
+         * widget.
+         *
+         * Returns a #GtkWidget (with initial floating reference); %NULL
+         * on error conditions.
+         */
+        uba_service_signals[CONNECT] = g_signal_new ("connect",
+                                                     UBA_TYPE_SERVICE,
+                                                     G_SIGNAL_ACTION,
+                                                     0,
+                                                     NULL, NULL, /* FIXME: add accumulator */
+                                                     uba_marshal_OBJECT__UINT64,
+                                                     GTK_TYPE_WIDGET,
+                                                     1,
+                                                     G_TYPE_UINT64);
 
         g_type_class_add_private (self_class, sizeof (UbaServicePrivate));
 }
