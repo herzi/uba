@@ -23,12 +23,23 @@
 
 #include <glib.h>
 #include <dbus/dbus-glib.h>
+#include <gtk/gtk.h>
+
+#include "uba-service.h"
+
+static GtkWidget*
+connect_cb (UbaService* service,
+            guint64     socket_id)
+{
+        return gtk_button_new_with_label ("UbaExample");
+}
 
 int
 main (int   argc,
       char**argv)
 {
         DBusGConnection* bus;
+        UbaService     * service;
         GMainLoop      * loop;
         GError         * error = NULL;
 
@@ -55,10 +66,25 @@ main (int   argc,
                 break;
         }
 
+        gtk_init (&argc, &argv);
+
         loop = g_main_loop_new (NULL, FALSE);
+
+        service = uba_service_new ();
+        uba_service_set_main_loop (service, loop);
+
+        g_signal_connect (service, "connect",
+                          G_CALLBACK (connect_cb), NULL);
+
+        dbus_g_connection_register_g_object (bus,
+                                             "/eu/adeal/uba/example",
+                                             G_OBJECT (service));
 
         g_main_loop_run (loop);
         g_main_loop_unref (loop);
+
+        g_object_unref (service);
+
         return 0;
 }
 
