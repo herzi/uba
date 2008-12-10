@@ -23,6 +23,11 @@
 
 #include "uba-container.h"
 
+enum {
+        PROP_0,
+        PROP_BUS_NAME
+};
+
 struct _UbaContainerPrivate {
         gchar* bus_name;
 };
@@ -54,6 +59,10 @@ container_get_property (GObject   * object,
                         GParamSpec* pspec)
 {
         switch (prop_id) {
+        case PROP_BUS_NAME:
+                g_value_set_string (value,
+                                    PRIV (object)->bus_name);
+                break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
                 break;
@@ -67,6 +76,11 @@ container_set_property (GObject     * object,
                         GParamSpec  * pspec)
 {
         switch (prop_id) {
+        case PROP_BUS_NAME:
+                g_return_if_fail (!PRIV (object)->bus_name);
+
+                PRIV (object)->bus_name = g_value_dup_string (value);
+                break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
                 break;
@@ -81,6 +95,11 @@ uba_container_class_init (UbaContainerClass* self_class)
         object_class->finalize     = container_finalize;
         object_class->get_property = container_get_property;
         object_class->set_property = container_set_property;
+
+        g_object_class_install_property (object_class,
+                                         PROP_BUS_NAME,
+                                         g_param_spec_string ("bus-name", NULL, NULL,
+                                                              NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 
         g_type_class_add_private (self_class, sizeof (UbaContainerPrivate));
 }
