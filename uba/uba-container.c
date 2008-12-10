@@ -23,15 +23,27 @@
 
 #include "uba-container.h"
 
+struct _UbaContainerPrivate {
+        gchar* bus_name;
+};
+
+#define PRIV(i) ((UbaContainer*)(i))->_private
+
 G_DEFINE_TYPE (UbaContainer, uba_container, GTK_TYPE_SOCKET);
 
 static void
 uba_container_init (UbaContainer* self)
-{}
+{
+        PRIV (self) = G_TYPE_INSTANCE_GET_PRIVATE (self,
+                                                   UBA_TYPE_CONTAINER,
+                                                   UbaContainerPrivate);
+}
 
 static void
 uba_container_class_init (UbaContainerClass* self_class)
-{}
+{
+        g_type_class_add_private (self_class, sizeof (UbaContainerPrivate));
+}
 
 /* Public API Implementation */
 
