@@ -48,11 +48,39 @@ container_finalize (GObject* object)
 }
 
 static void
+container_get_property (GObject   * object,
+                        guint       prop_id,
+                        GValue    * value,
+                        GParamSpec* pspec)
+{
+        switch (prop_id) {
+        default:
+                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+                break;
+        }
+}
+
+static void
+container_set_property (GObject     * object,
+                        guint         prop_id,
+                        GValue const* value,
+                        GParamSpec  * pspec)
+{
+        switch (prop_id) {
+        default:
+                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+                break;
+        }
+}
+
+static void
 uba_container_class_init (UbaContainerClass* self_class)
 {
         GObjectClass* object_class = G_OBJECT_CLASS (self_class);
 
-        object_class->finalize = container_finalize;
+        object_class->finalize     = container_finalize;
+        object_class->get_property = container_get_property;
+        object_class->set_property = container_set_property;
 
         g_type_class_add_private (self_class, sizeof (UbaContainerPrivate));
 }
