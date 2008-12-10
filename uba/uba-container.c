@@ -40,8 +40,20 @@ uba_container_init (UbaContainer* self)
 }
 
 static void
+container_finalize (GObject* object)
+{
+        g_free (PRIV (object)->bus_name);
+
+        G_OBJECT_CLASS (uba_container_parent_class)->finalize (object);
+}
+
+static void
 uba_container_class_init (UbaContainerClass* self_class)
 {
+        GObjectClass* object_class = G_OBJECT_CLASS (self_class);
+
+        object_class->finalize = container_finalize;
+
         g_type_class_add_private (self_class, sizeof (UbaContainerPrivate));
 }
 
