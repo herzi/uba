@@ -30,6 +30,8 @@
 #include "uba-marshallers.h"
 #include "uba-service-glue.h"
 
+#include <glib/gi18n.h>
+
 enum {
         CONNECT,
         N_SIGNALS
@@ -100,27 +102,35 @@ uba_service_connect (UbaService* self,
                      GError    **error)
 {
         GtkWidget* plug;
-        GtkWidget* label;
-        gchar* text;
+        GtkWidget* result = NULL;
 
         g_return_val_if_fail (UBA_IS_SERVICE (self), FALSE);
 
-        plug = gtk_plug_new (socket_id);
-        g_object_set_data_full (G_OBJECT (plug),
-                                "UbaMainLoop",
-                                PRIV (self)->loop,
-                                (GDestroyNotify)g_main_loop_quit);
+        g_signal_emit (self,
+                       uba_service_signals[CONNECT],
+                       0,
+                       socket_id,
+                       &result);
 
-        text = g_strdup_printf ("UBA Demo: GtkPlug in GtkSocket (%d)",
-                                socket_id);
-        label = gtk_label_new (text);
-        gtk_container_add (GTK_CONTAINER (plug),
-                           label);
-        g_free (text);
+        if (GTK_IS_WIDGET (result)) {
+                plug = gtk_plug_new (socket_id);
+                g_object_set_data_full (G_OBJECT (plug),
+                                        "UbaMainLoop",
+                                        PRIV (self)->loop,
+                                        (GDestroyNotify)g_main_loop_quit);
 
-        gtk_widget_show_all (plug);
+                gtk_container_add (GTK_CONTAINER (plug),
+                                   result);
 
-        return TRUE;
+                gtk_widget_show_all (plug);
+        } else {
+                g_set_error (error,
+                             0, /* domain */
+                             0, /* code */
+                             _("The service didn't receive an object"));
+        }
+
+        return GTK_IS_WIDGET (result);
 }
 
 UbaService*

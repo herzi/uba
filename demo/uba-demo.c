@@ -73,6 +73,23 @@ my_log_func (gchar const*    domain,
                 message);
 }
 
+static GtkWidget*
+connect_cb (UbaService* service,
+            guint64     socket_id)
+{
+        GtkWidget* label;
+        gchar* text;
+
+        g_message ("creating label for socket %d", socket_id);
+
+        text = g_strdup_printf ("UBA Demo: GtkPlug in GtkSocket (%d)",
+                                socket_id);
+        label = gtk_label_new (text);
+        g_free (text);
+
+        return label;
+}
+
 int
 main (int   argc,
       char**argv)
@@ -119,6 +136,9 @@ main (int   argc,
 
         service = uba_service_new ();
         uba_service_set_main_loop (service, loop);
+
+        g_signal_connect (service, "connect",
+                          G_CALLBACK (connect_cb), NULL);
 
         dbus_g_connection_register_g_object (bus,
                                              "/eu/adeal/uba/demo",
