@@ -25,11 +25,13 @@
 
 enum {
         PROP_0,
-        PROP_BUS_NAME
+        PROP_BUS_NAME,
+        PROP_CREATOR_PATH
 };
 
 struct _UbaContainerPrivate {
         gchar* bus_name;
+        gchar* creator_path;
 };
 
 #define PRIV(i) ((UbaContainer*)(i))->_private
@@ -63,6 +65,10 @@ container_get_property (GObject   * object,
                 g_value_set_string (value,
                                     PRIV (object)->bus_name);
                 break;
+        case PROP_CREATOR_PATH:
+                g_value_set_string (value,
+                                    PRIV (object)->creator_path);
+                break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
                 break;
@@ -80,6 +86,11 @@ container_set_property (GObject     * object,
                 g_return_if_fail (!PRIV (object)->bus_name);
 
                 PRIV (object)->bus_name = g_value_dup_string (value);
+                break;
+        case PROP_CREATOR_PATH:
+                g_return_if_fail (!PRIV (object)->creator_path);
+
+                PRIV (object)->creator_path = g_value_dup_string (value);
                 break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -99,6 +110,10 @@ uba_container_class_init (UbaContainerClass* self_class)
         g_object_class_install_property (object_class,
                                          PROP_BUS_NAME,
                                          g_param_spec_string ("bus-name", NULL, NULL,
+                                                              NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+        g_object_class_install_property (object_class,
+                                         PROP_CREATOR_PATH,
+                                         g_param_spec_string ("creator-path", NULL, NULL,
                                                               NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 
         g_type_class_add_private (self_class, sizeof (UbaContainerPrivate));
