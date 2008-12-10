@@ -23,6 +23,8 @@
 
 #include "uba-container.h"
 
+#include <dbus/dbus-glib.h>
+
 enum {
         PROP_0,
         PROP_BUS_NAME,
@@ -32,6 +34,8 @@ enum {
 struct _UbaContainerPrivate {
         gchar* bus_name;
         gchar* creator_path;
+
+        DBusGProxy* proxy;
 };
 
 #define PRIV(i) ((UbaContainer*)(i))->_private
@@ -44,6 +48,24 @@ uba_container_init (UbaContainer* self)
         PRIV (self) = G_TYPE_INSTANCE_GET_PRIVATE (self,
                                                    UBA_TYPE_CONTAINER,
                                                    UbaContainerPrivate);
+}
+
+static void
+container_constructed (GObject* object)
+{
+        DBusGConnection* bus;
+
+        g_return_if_fail (PRIV (object)->bus_name);
+        g_return_if_fail (PRIV (object)->creator_path);
+        g_return_if_fail (!PRIV (object)->proxy);
+
+        /* FIXME: add error check */
+        bus = dbus_g_bus_get (DBUS_BUS_SESSION, NULL);
+
+        PRIV (object)->proxy = dbus_g_proxy_new_for_name (bus,
+                                                          PRIV (object)->bus_name,
+                                                          PRIV (object)->creator_path,
+                                                          "eu.adeal.uba.Service");
 }
 
 static void
@@ -103,6 +125,7 @@ uba_container_class_init (UbaContainerClass* self_class)
 {
         GObjectClass* object_class = G_OBJECT_CLASS (self_class);
 
+        object_class->constructed  = container_constructed;
         object_class->finalize     = container_finalize;
         object_class->get_property = container_get_property;
         object_class->set_property = container_set_property;
