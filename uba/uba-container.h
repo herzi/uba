@@ -28,13 +28,28 @@
 
 G_BEGIN_DECLS
 
-typedef GtkSocket      UbaContainer;
-typedef GtkSocketClass UbaContainerClass;
+typedef struct _UbaContainer        UbaContainer;
+typedef struct _UbaContainerPrivate UbaContainerPrivate;
+typedef struct _UbaContainerClass   UbaContainerClass;
 
 #define UBA_TYPE_CONTAINER         (uba_container_get_type ())
+#define UBA_CONTAINER(i)           (G_TYPE_CHECK_INSTANCE_CAST ((i), UBA_TYPE_CONTAINER, UbaContainer))
+#define UBA_CONTAINER_CLASS(c)     (G_TYPE_CHECK_CLASS_CAST ((c), UBA_TYPE_CONTAINER, UbaContainerClass))
+#define UBA_IS_CONTAINER(i)        (G_TYPE_CHECK_INSTANCE_TYPE ((i), UBA_TYPE_CONTAINER))
+#define UBA_IS_CONTAINER_CLASS(c)  (G_TYPE_CHECK_CLASS_TYPE ((c), UBA_TYPE_CONTAINER))
+#define UBA_CONTAINER_GET_CLASS(i) (G_TYPE_INSTANCE_GET_CLASS ((i), UBA_TYPE_CONTAINER, UbaContainerClass))
 
 GType      uba_container_get_type (void);
 GtkWidget* uba_container_new      (void);
+
+struct _UbaContainer {
+        GtkSocket            base_instance;
+        UbaContainerPrivate* _private;
+};
+
+struct _UbaContainerClass {
+        GtkSocketClass       base_class;
+};
 
 G_END_DECLS
 
