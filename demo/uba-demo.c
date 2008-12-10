@@ -66,11 +66,18 @@ my_log_func (gchar const*    domain,
                 severity = "error";
         }
 
-        syslog (priority,
-                "%s (%s): %s",
-                domain,
-                severity,
-                message);
+        if (domain) {
+                syslog (priority,
+                        "%s (%s): %s",
+                        severity,
+                        domain,
+                        message);
+        } else {
+                syslog (priority,
+                        "%s: %s",
+                        severity,
+                        message);
+        }
 }
 
 static GtkWidget*
@@ -114,6 +121,9 @@ main (int   argc,
                 g_warning ("Failed to connect to dbus session bus: %s",
                            error->message);
                 g_clear_error (&error);
+
+                closelog ();
+
                 return 1;
         }
 
