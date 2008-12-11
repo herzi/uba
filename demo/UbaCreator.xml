@@ -3,7 +3,7 @@
 "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">-->
 <node>
         <interface name="eu.adeal.uba.creator">
-                <method name="GetInstance">
+                <method name="Connect">
                         <arg type="t" name="socket" direction="in" />
                 </method>
         </interface>

@@ -100,6 +100,12 @@ gboolean
 uba_service_get_instance (UbaService* self,
                           guint64     socket_id,
                           GError    **error)
+{}
+
+gboolean
+uba_service_connect (UbaService* self,
+                     guint64     socket_id,
+                     GError    **error)
 {
         GtkWidget* plug;
         GtkWidget* result = NULL;

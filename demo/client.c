@@ -41,6 +41,7 @@ main (int   argc,
         GtkWidget* button;
         GtkWidget* socket;
         GError         * error = NULL;
+        gchar          * path = NULL;
 
         g_type_init ();
 
@@ -75,15 +76,30 @@ main (int   argc,
                                            "eu.adeal.uba.demo",
                                            "/eu/adeal/uba/demo",
                                            "eu.adeal.uba.creator");
+#if 0
         eu_adeal_uba_creator_get_instance (proxy,
                                            gtk_socket_get_id (GTK_SOCKET (socket)),
                                            &error);
-
+#endif
         if (error) {
                 g_warning ("error getting the demo: %s", error->message);
                 g_clear_error (&error);
 
                 return 1;
+        } else {
+                g_print ("%s\n", path);
+                eu_adeal_uba_creator_connect      (proxy,
+                                                   gtk_socket_get_id (GTK_SOCKET (socket)),
+                                                   &error);
+
+                g_free (path);
+
+                if (error) {
+                        g_warning ("error getting the demo: %s", error->message);
+                        g_clear_error (&error);
+
+                        return 1;
+                }
         }
 
         socket = uba_container_new ();
@@ -94,15 +110,30 @@ main (int   argc,
                                            "eu.adeal.uba.example",
                                            "/eu/adeal/uba/example",
                                            "eu.adeal.uba.creator");
+#if 0
         eu_adeal_uba_creator_get_instance (proxy,
                                            gtk_socket_get_id (GTK_SOCKET (socket)),
                                            &error);
-
+#endif
         if (error) {
                 g_warning ("error getting the example: %s", error->message);
                 g_clear_error (&error);
 
                 return 1;
+        } else {
+                g_print ("%s\n", path);
+                eu_adeal_uba_creator_connect      (proxy,
+                                                   gtk_socket_get_id (GTK_SOCKET (socket)),
+                                                   &error);
+
+                g_free (path);
+
+                if (error) {
+                        g_warning ("error getting the example: %s", error->message);
+                        g_clear_error (&error);
+
+                        return 1;
+                }
         }
 
         gtk_widget_show_all (window);
