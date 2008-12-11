@@ -74,8 +74,8 @@ main (int   argc,
         proxy = dbus_g_proxy_new_for_name (bus,
                                            "eu.adeal.uba.demo",
                                            "/eu/adeal/uba/demo",
-                                           "eu.adeal.uba.Creator");
-        eu_adeal_uba_Creator_get_instance (proxy,
+                                           "eu.adeal.uba.creator");
+        eu_adeal_uba_creator_get_instance (proxy,
                                            gtk_socket_get_id (GTK_SOCKET (socket)),
                                            &error);
 
@@ -93,8 +93,8 @@ main (int   argc,
         proxy = dbus_g_proxy_new_for_name (bus,
                                            "eu.adeal.uba.example",
                                            "/eu/adeal/uba/example",
-                                           "eu.adeal.uba.Creator");
-        eu_adeal_uba_Creator_get_instance (proxy,
+                                           "eu.adeal.uba.creator");
+        eu_adeal_uba_creator_get_instance (proxy,
                                            gtk_socket_get_id (GTK_SOCKET (socket)),
                                            &error);
 
