@@ -90,6 +90,7 @@ main (int   argc,
                 g_print ("%s\n", path);
                 eu_adeal_uba_creator_connect      (proxy,
                                                    gtk_socket_get_id (GTK_SOCKET (socket)),
+                                                   path,
                                                    &error);
 
                 g_free (path);
@@ -124,6 +125,7 @@ main (int   argc,
                 g_print ("%s\n", path);
                 eu_adeal_uba_creator_connect      (proxy,
                                                    gtk_socket_get_id (GTK_SOCKET (socket)),
+                                                   path,
                                                    &error);
 
                 g_free (path);

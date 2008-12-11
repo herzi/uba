@@ -105,6 +105,7 @@ uba_service_get_instance (UbaService* self,
 gboolean
 uba_service_connect (UbaService* self,
                      guint64     socket_id,
+                     gchar     * path,
                      GError    **error)
 {
         GtkWidget* plug;
