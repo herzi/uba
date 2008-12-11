@@ -27,10 +27,10 @@ uba_example_SOURCES=\
 	uba-service.h \
 	$(NULL)
 
-uba-service-glue.h: UbaService.xml Makefile
+uba-service-glue.h: UbaCreator.xml Makefile
 	dbus-binding-tool --mode=glib-server --prefix=uba_service $< > $@
 
-uba-service-binding.h: UbaService.xml Makefile
+uba-service-binding.h: UbaCreator.xml Makefile
 	dbus-binding-tool --mode=glib-client $< > $@
 
 uba-marshallers.h: $(MARSHALLERS) Makefile
