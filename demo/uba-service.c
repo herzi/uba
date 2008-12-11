@@ -97,15 +97,16 @@ uba_service_class_init (UbaServiceClass* self_class)
 }
 
 gboolean
-uba_service_connect (UbaService* self,
-                     guint64     socket_id,
-                     GError    **error)
+uba_service_get_instance (UbaService* self,
+                          guint64     socket_id,
+                          GError    **error)
 {
         GtkWidget* plug;
         GtkWidget* result = NULL;
 
         g_return_val_if_fail (UBA_IS_SERVICE (self), FALSE);
 
+        /* FIXME: rename the signal */
         g_signal_emit (self,
                        uba_service_signals[CONNECT],
                        0,

@@ -75,9 +75,9 @@ main (int   argc,
                                            "eu.adeal.uba.demo",
                                            "/eu/adeal/uba/demo",
                                            "eu.adeal.uba.Creator");
-        eu_adeal_uba_Creator_connect (proxy,
-                                      gtk_socket_get_id (GTK_SOCKET (socket)),
-                                      &error);
+        eu_adeal_uba_Creator_get_instance (proxy,
+                                           gtk_socket_get_id (GTK_SOCKET (socket)),
+                                           &error);
 
         if (error) {
                 g_warning ("error getting the demo: %s", error->message);
@@ -94,9 +94,9 @@ main (int   argc,
                                            "eu.adeal.uba.example",
                                            "/eu/adeal/uba/example",
                                            "eu.adeal.uba.Creator");
-        eu_adeal_uba_Creator_connect (proxy,
-                                      gtk_socket_get_id (GTK_SOCKET (socket)),
-                                      &error);
+        eu_adeal_uba_Creator_get_instance (proxy,
+                                           gtk_socket_get_id (GTK_SOCKET (socket)),
+                                           &error);
 
         if (error) {
                 g_warning ("error getting the example: %s", error->message);
