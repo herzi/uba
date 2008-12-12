@@ -48,7 +48,7 @@ gboolean    uba_service_connect       (UbaService* self,
                                        gchar     * path,
                                        GError    **error);
 gboolean    uba_service_get_instance  (UbaService* self,
-                                       guint64     socket_id,
+                                       gchar     **path,
                                        GError    **error);
 void        uba_service_set_main_loop (UbaService* self,
                                        GMainLoop * loop);

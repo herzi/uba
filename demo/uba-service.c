@@ -98,9 +98,21 @@ uba_service_class_init (UbaServiceClass* self_class)
 
 gboolean
 uba_service_get_instance (UbaService* self,
-                          guint64     socket_id,
+                          gchar     **path,
                           GError    **error)
-{}
+{
+        static guint id = 0;
+
+        /* FIXME: add a logging function that sets the error */
+        g_return_val_if_fail (UBA_IS_SERVICE (self), FALSE);
+        g_return_val_if_fail (path && !*path, FALSE);
+
+        *path = g_strdup_printf ("/eu/adeal/uba/%s-%lu",
+                                 g_get_prgname (),
+                                 id++);
+
+        return *path != NULL;
+}
 
 gboolean
 uba_service_connect (UbaService* self,
