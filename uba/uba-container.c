@@ -145,9 +145,12 @@ uba_container_class_init (UbaContainerClass* self_class)
 /* Public API Implementation */
 
 GtkWidget*
-uba_container_new (void)
+uba_container_new (gchar const* service_name,
+                   gchar const* creator_path)
 {
         return g_object_new (UBA_TYPE_CONTAINER,
+                             "bus-name", service_name,
+                             "creator-path", creator_path,
                              NULL);
 }
 

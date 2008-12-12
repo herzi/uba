@@ -68,7 +68,8 @@ main (int   argc,
                             button,
                             FALSE, TRUE, 0);
 
-        socket = uba_container_new ();
+        socket = uba_container_new ("eu.adeal.uba.demo",
+                                    "/eu/adeal/uba/demo");
         gtk_container_add (GTK_CONTAINER (vbox),
                            socket);
 
@@ -103,7 +104,8 @@ main (int   argc,
         }
 
         path = NULL;
-        socket = uba_container_new ();
+        socket = uba_container_new ("eu.adeal.uba.example",
+                                    "/eu/adeal/uba/example");
         gtk_container_add (GTK_CONTAINER (vbox),
                            socket);
 

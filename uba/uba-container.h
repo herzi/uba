@@ -40,7 +40,8 @@ typedef struct _UbaContainerClass   UbaContainerClass;
 #define UBA_CONTAINER_GET_CLASS(i) (G_TYPE_INSTANCE_GET_CLASS ((i), UBA_TYPE_CONTAINER, UbaContainerClass))
 
 GType      uba_container_get_type (void);
-GtkWidget* uba_container_new      (void);
+GtkWidget* uba_container_new      (gchar const* service_name,
+                                   gchar const* creator_path);
 
 struct _UbaContainer {
         GtkSocket            base_instance;
