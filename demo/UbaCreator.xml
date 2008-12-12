@@ -4,11 +4,11 @@
 <node>
         <interface name="eu.adeal.uba.creator">
                 <method name="GetInstance">
-                        <arg type="s" name="path" direction="out" />
+                        <arg type="o" name="path" direction="out" />
                 </method>
                 <method name="Connect">
                         <arg type="t" name="socket" direction="in" />
-                        <arg type="s" name="path" direction="in" />
+                        <arg type="o" name="path" direction="in" />
                 </method>
         </interface>
 </node>
