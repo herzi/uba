@@ -150,9 +150,13 @@ main (int   argc,
         g_signal_connect (service, "connect",
                           G_CALLBACK (connect_cb), NULL);
 
+        syslog (LOG_INFO, "before registering: %d refs", G_OBJECT (service)->ref_count);
+
         dbus_g_connection_register_g_object (bus,
                                              "/eu/adeal/uba/demo",
                                              G_OBJECT (service));
+
+        syslog (LOG_INFO, "after registering:  %d refs", G_OBJECT (service)->ref_count);
 
         g_main_loop_run (loop);
         g_main_loop_unref (loop);
