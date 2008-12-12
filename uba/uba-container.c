@@ -25,6 +25,8 @@
 
 #include <dbus/dbus-glib.h>
 
+#include "uba-creator-introspection.h"
+
 enum {
         PROP_0,
         PROP_BUS_NAME,
@@ -34,6 +36,8 @@ enum {
 struct _UbaContainerPrivate {
         gchar* bus_name;
         gchar* creator_path;
+
+        gchar* plug_path;
 
         DBusGProxy* proxy;
 };
@@ -54,6 +58,7 @@ static void
 container_constructed (GObject* object)
 {
         DBusGConnection* bus;
+        GError         * error = NULL;
 
         g_return_if_fail (PRIV (object)->bus_name);
         g_return_if_fail (PRIV (object)->creator_path);
@@ -65,7 +70,18 @@ container_constructed (GObject* object)
         PRIV (object)->proxy = dbus_g_proxy_new_for_name (bus,
                                                           PRIV (object)->bus_name,
                                                           PRIV (object)->creator_path,
-                                                          "eu.adeal.uba.Service");
+                                                          "eu.adeal.uba.creator");
+        eu_adeal_uba_creator_get_instance (PRIV (object)->proxy,
+                                           &PRIV (object)->plug_path,
+                                           &error);
+
+        if (error) {
+                g_warning ("error getting the service proxy for \"%s\" on \"%s\": %s",
+                           PRIV (object)->creator_path,
+                           PRIV (object)->bus_name,
+                           error->message);
+                g_clear_error (&error);
+        }
 }
 
 static void
