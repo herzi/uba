@@ -1,9 +1,18 @@
 lib_LTLIBRARIES=\
 	libuba.la
 
+BUILT_SOURCES=\
+	uba-service-binding.h \
+	$(NULL)
+
 libuba_la_SOURCES=\
+	$(BUILT_SOURCES) \
 	uba-container.c \
 	uba-container.h
+
+CLEANFILES=\
+	$(BUILT_SOURCES) \
+	$(NULL)
 
 EXTRA_DIST=\
 	UbaCreator.xml \
@@ -11,3 +20,6 @@ EXTRA_DIST=\
 
 AM_CPPFLAGS=\
 	$(UBA_CFLAGS)
+
+uba-service-binding.h: UbaCreator.xml Makefile
+	dbus-binding-tool --mode=glib-client $< > $@

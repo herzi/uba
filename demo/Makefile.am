@@ -9,7 +9,6 @@ noinst_PROGRAMS=\
 BUILT_SOURCES=\
 	uba-marshallers.c \
 	uba-marshallers.h \
-	uba-service-binding.h \
 	uba-service-glue.h \
 	$(NULL)
 
@@ -29,9 +28,6 @@ uba_example_SOURCES=\
 
 uba-service-glue.h: $(top_srcdir)/uba/UbaCreator.xml Makefile
 	dbus-binding-tool --mode=glib-server --prefix=uba_service $< > $@
-
-uba-service-binding.h: $(top_srcdir)/uba/UbaCreator.xml Makefile
-	dbus-binding-tool --mode=glib-client $< > $@
 
 uba-marshallers.h: $(MARSHALLERS) Makefile
 	(cd $(srcdir) && \
