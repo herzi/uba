@@ -81,7 +81,7 @@ main (int   argc,
                                            &error);
 
         if (error) {
-                g_warning ("error getting the demo: %s", error->message);
+                g_warning ("error getting the demo (1): %s", error->message);
                 g_clear_error (&error);
 
                 return 1;
@@ -95,7 +95,7 @@ main (int   argc,
                 g_free (path);
 
                 if (error) {
-                        g_warning ("error getting the demo: %s", error->message);
+                        g_warning ("error getting the demo (2): %s", error->message);
                         g_clear_error (&error);
 
                         return 1;
@@ -116,7 +116,7 @@ main (int   argc,
                                            &error);
 
         if (error) {
-                g_warning ("error getting the example: %s", error->message);
+                g_warning ("error getting the example (1): %s", error->message);
                 g_clear_error (&error);
 
                 return 1;
@@ -130,7 +130,7 @@ main (int   argc,
                 g_free (path);
 
                 if (error) {
-                        g_warning ("error getting the example: %s", error->message);
+                        g_warning ("error getting the example (2): %s", error->message);
                         g_clear_error (&error);
 
                         return 1;
