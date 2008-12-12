@@ -28,7 +28,7 @@
 #include <gtk/gtk.h>
 #include "uba-container.h"
 
-#include "uba-service-binding.h"
+#include "uba-creator-introspection.h"
 
 int
 main (int   argc,
