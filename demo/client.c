@@ -76,11 +76,10 @@ main (int   argc,
                                            "eu.adeal.uba.demo",
                                            "/eu/adeal/uba/demo",
                                            "eu.adeal.uba.creator");
-#if 0
         eu_adeal_uba_creator_get_instance (proxy,
-                                           gtk_socket_get_id (GTK_SOCKET (socket)),
+                                           &path,
                                            &error);
-#endif
+
         if (error) {
                 g_warning ("error getting the demo: %s", error->message);
                 g_clear_error (&error);
@@ -103,6 +102,7 @@ main (int   argc,
                 }
         }
 
+        path = NULL;
         socket = uba_container_new ();
         gtk_container_add (GTK_CONTAINER (vbox),
                            socket);
@@ -111,11 +111,10 @@ main (int   argc,
                                            "eu.adeal.uba.example",
                                            "/eu/adeal/uba/example",
                                            "eu.adeal.uba.creator");
-#if 0
         eu_adeal_uba_creator_get_instance (proxy,
-                                           gtk_socket_get_id (GTK_SOCKET (socket)),
+                                           &path,
                                            &error);
-#endif
+
         if (error) {
                 g_warning ("error getting the example: %s", error->message);
                 g_clear_error (&error);
