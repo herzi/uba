@@ -102,14 +102,20 @@ uba_service_get_instance (UbaService* self,
                           GError    **error)
 {
         static guint id = 0;
+        static gchar* iter;
 
         /* FIXME: add a logging function that sets the error */
         g_return_val_if_fail (UBA_IS_SERVICE (self), FALSE);
         g_return_val_if_fail (path && !*path, FALSE);
 
-        *path = g_strdup_printf ("/eu/adeal/uba/%s-%lu",
+        *path = g_strdup_printf ("/eu/adeal/uba/%s_%lu",
                                  g_get_prgname (),
                                  id++);
+        for (iter = *path; iter && *iter; iter++) {
+                if (*iter == '-') {
+                        *iter = '_';
+                }
+        }
 
         return *path != NULL;
 }
