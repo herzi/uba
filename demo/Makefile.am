@@ -16,25 +16,16 @@ BUILT_SOURCES=\
 	$(NULL)
 
 libuba_server_la_SOURCES=\
-	$(NULL)
-
-uba_demo_SOURCES=\
 	$(BUILT_SOURCES) \
-	uba-demo.c \
 	uba-creator.c \
 	uba-creator.h \
 	$(NULL)
+
 uba_demo_LDADD=\
 	$(LDADD) \
 	libuba-server.la \
 	$(NULL)
 
-uba_example_SOURCES=\
-	$(BUILT_SOURCES) \
-	uba-example.c \
-	uba-creator.c \
-	uba-creator.h \
-	$(NULL)
 uba_example_LDADD=\
 	$(uba_demo_LDADD) \
 	$(NULL)
