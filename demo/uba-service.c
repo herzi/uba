@@ -23,7 +23,10 @@
 
 #include "uba-service.h"
 
-G_DEFINE_TYPE (UbaService, uba_service, G_TYPE_OBJECT);
+#include "uba-service-glue.h"
+
+G_DEFINE_TYPE_WITH_CODE (UbaService, uba_service, G_TYPE_OBJECT,
+                         dbus_g_object_type_install_info (g_define_type_id, &dbus_glib_uba_service_object_info););
 
 static void
 uba_service_init (UbaService* self)
@@ -32,6 +35,15 @@ uba_service_init (UbaService* self)
 static void
 uba_service_class_init (UbaServiceClass* self_class)
 {}
+
+gboolean
+uba_service_connect (UbaService* self,
+                     guint64     socket_id,
+                     gchar     * path,
+                     GError    **error)
+{
+        return TRUE;
+}
 
 UbaService*
 uba_service_new (void)
