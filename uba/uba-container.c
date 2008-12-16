@@ -26,6 +26,7 @@
 #include <dbus/dbus-glib.h>
 
 #include "uba-creator-introspection.h"
+#include "uba-service-introspection.h"
 
 enum {
         PROP_0,
@@ -90,8 +91,8 @@ container_constructed (GObject* object)
 
         PRIV (object)->proxy = dbus_g_proxy_new_for_name (bus,
                                                           PRIV (object)->bus_name,
-                                                          PRIV (object)->creator_path, /* FIXME: plug_path */
-                                                          "eu.adeal.uba.creator"); /* FIXME: move into service */
+                                                          PRIV (object)->plug_path,
+                                                          "eu.adeal.uba.service");
 
         if (error) {
                 g_warning ("error getting the service proxy for the plug \"%s\" on \"%s\": %s",
@@ -161,7 +162,7 @@ container_realize (GtkWidget* widget)
 
         GTK_WIDGET_CLASS (uba_container_parent_class)->realize (widget);
 
-        eu_adeal_uba_creator_connect (PRIV (widget)->proxy,
+        eu_adeal_uba_service_connect (PRIV (widget)->proxy,
                                       gtk_socket_get_id (GTK_SOCKET (widget)),
                                       PRIV (widget)->plug_path,
                                       &error);
