@@ -58,7 +58,7 @@ AM_CPPFLAGS=\
 	$(NULL)
 LDADD=\
 	$(UBA_LIBS) \
-	../uba/libuba.la \
+	../uba/libuba-client.la \
 	$(NULL)
 
 CLEANFILES=$(BUILT_SOURCES)

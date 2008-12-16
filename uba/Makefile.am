@@ -1,5 +1,5 @@
 lib_LTLIBRARIES=\
-	libuba.la
+	libuba-client.la
 
 AM_CPPFLAGS=-DG_LOG_DOMAIN=\""uba-client"\"
 
@@ -8,7 +8,7 @@ BUILT_SOURCES=\
 	uba-service-introspection.h \
 	$(NULL)
 
-libuba_la_SOURCES=\
+libuba_client_la_SOURCES=\
 	$(BUILT_SOURCES) \
 	uba-container.c \
 	uba-container.h

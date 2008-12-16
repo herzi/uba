@@ -1,4 +1,4 @@
-autom4te.cache
+*autom4te.cache
 configure
 install-sh
 missing
@@ -14,3 +14,8 @@ config.sub
 depcomp
 libtool
 ltmain.sh
+.deps
+.libs
+*.o
+*.lo
+*.la
