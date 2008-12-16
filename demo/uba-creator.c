@@ -23,12 +23,12 @@
  * if advised of the possibility of such damage.
  */
 
-#include "uba-service.h"
+#include "uba-creator.h"
 
 #include <gtk/gtk.h>
 
+#include "uba-creator-glue.h"
 #include "uba-marshallers.h"
-#include "uba-service-glue.h"
 
 #include <glib/gi18n.h>
 

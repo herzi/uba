@@ -31,7 +31,7 @@
 #include <dbus/dbus-glib-lowlevel.h>
 #include <gtk/gtk.h>
 
-#include "uba-service.h"
+#include "uba-creator.h"
 
 static void
 my_log_func (gchar const*    domain,

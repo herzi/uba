@@ -25,7 +25,7 @@
 #include <dbus/dbus-glib.h>
 #include <gtk/gtk.h>
 
-#include "uba-service.h"
+#include "uba-creator.h"
 
 static GtkWidget*
 connect_cb (UbaService* service,
