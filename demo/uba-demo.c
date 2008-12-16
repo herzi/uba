@@ -152,9 +152,9 @@ main (int   argc,
 
         syslog (LOG_INFO, "before registering: %d refs", G_OBJECT (creator)->ref_count);
 
-        dbus_g_connection_register_g_object (bus,
-                                             "/eu/adeal/uba/demo",
-                                             G_OBJECT (creator));
+        uba_creator_register (creator,
+                              bus,
+                              "/eu/adeal/uba/demo");
 
         syslog (LOG_INFO, "after registering:  %d refs", G_OBJECT (creator)->ref_count);
 

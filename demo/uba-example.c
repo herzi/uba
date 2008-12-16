@@ -76,9 +76,9 @@ main (int   argc,
         g_signal_connect (creator, "connect",
                           G_CALLBACK (connect_cb), NULL);
 
-        dbus_g_connection_register_g_object (bus,
-                                             "/eu/adeal/uba/example",
-                                             G_OBJECT (creator));
+        uba_creator_register (creator,
+                              bus,
+                              "/eu/adeal/uba/example");
 
         g_main_loop_run (loop);
         g_main_loop_unref (loop);

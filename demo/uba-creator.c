@@ -168,6 +168,22 @@ uba_creator_new (void)
 }
 
 void
+uba_creator_register (UbaCreator     * self,
+                      DBusGConnection* bus,
+                      gchar const    * path)
+{
+        gboolean registered = PRIV (self)->bus != NULL;
+
+        g_return_if_fail (!registered);
+
+        PRIV (self)->bus = bus;
+
+        dbus_g_connection_register_g_object (bus,
+                                             path,
+                                             G_OBJECT (self));
+}
+
+void
 uba_creator_set_main_loop (UbaCreator* self,
                            GMainLoop * loop)
 {

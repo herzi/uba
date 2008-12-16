@@ -26,7 +26,7 @@
 #ifndef UBA_CREATOR_H
 #define UBA_CREATOR_H
 
-#include <glib-object.h>
+#include <dbus/dbus-glib.h>
 
 G_BEGIN_DECLS
 
@@ -50,6 +50,9 @@ gboolean    uba_creator_connect       (UbaCreator* self,
 gboolean    uba_creator_get_instance  (UbaCreator* self,
                                        gchar     **path,
                                        GError    **error);
+void        uba_creator_register      (UbaCreator     * self,
+                                       DBusGConnection* bus,
+                                       gchar const    * path);
 void        uba_creator_set_main_loop (UbaCreator* self,
                                        GMainLoop * loop);
 
