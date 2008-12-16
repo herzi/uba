@@ -13,6 +13,7 @@ BUILT_SOURCES=\
 	uba-creator-glue.h \
 	uba-marshallers.c \
 	uba-marshallers.h \
+	uba-service-glue.h \
 	$(NULL)
 
 libuba_server_la_SOURCES=\
@@ -34,6 +35,9 @@ uba_example_LDADD=\
 
 uba-creator-glue.h: $(top_srcdir)/uba/UbaCreator.xml Makefile
 	dbus-binding-tool --mode=glib-server --prefix=uba_creator $< > $@
+
+uba-service-glue.h: $(top_srcdir)/uba/UbaService.xml Makefile
+	dbus-binding-tool --mode=glib-server --prefix=uba_service $< > $@
 
 uba-marshallers.h: $(MARSHALLERS) Makefile
 	(cd $(srcdir) && \
