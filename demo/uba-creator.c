@@ -106,17 +106,43 @@ uba_creator_get_instance (UbaCreator* self,
         static guint id = 0;
         static gchar* iter;
 
+        GtkWidget* result = NULL;
+
         /* FIXME: add a logging function that sets the error */
         g_return_val_if_fail (UBA_IS_CREATOR (self), FALSE);
         g_return_val_if_fail (path && !*path, FALSE);
 
-        *path = g_strdup_printf ("/eu/adeal/uba/%s_%lu",
-                                 g_get_prgname (),
-                                 id++);
-        for (iter = *path; iter && *iter; iter++) {
-                if (*iter == '-') {
-                        *iter = '_';
+        /* FIXME: rename the signal */
+        g_signal_emit (self,
+                       uba_creator_signals[CONNECT],
+                       0,
+                       (guint64)0,
+                       &result);
+
+        if (GTK_IS_WIDGET (result)) {
+                UbaService* service = uba_service_new (result);
+                g_object_set_data_full (G_OBJECT (result),
+                                        "UbaMainLoop",
+                                        PRIV (self)->loop,
+                                        (GDestroyNotify)g_main_loop_quit);
+
+                *path = g_strdup_printf ("/eu/adeal/uba/%s_%lu",
+                                         g_get_prgname (),
+                                         id++);
+                for (iter = *path; iter && *iter; iter++) {
+                        if (*iter == '-') {
+                                *iter = '_';
+                        }
                 }
+
+                dbus_g_connection_register_g_object (PRIV (self)->bus,
+                                                     *path,
+                                                     G_OBJECT (service));
+        } else {
+                g_set_error (error,
+                             0, /* domain */
+                             0, /* code */
+                             _("The creator didn't receive an object"));
         }
 
         return *path != NULL;
@@ -129,33 +155,8 @@ uba_creator_connect (UbaCreator* self,
                      GError    **error)
 {
         UbaService* service = NULL;
-        GtkWidget* result = NULL;
 
         g_return_val_if_fail (UBA_IS_CREATOR (self), FALSE);
-
-        /* FIXME: rename the signal */
-        g_signal_emit (self,
-                       uba_creator_signals[CONNECT],
-                       0,
-                       socket_id,
-                       &result);
-
-        if (GTK_IS_WIDGET (result)) {
-                UbaService* service = uba_service_new (result);
-                g_object_set_data_full (G_OBJECT (result),
-                                        "UbaMainLoop",
-                                        PRIV (self)->loop,
-                                        (GDestroyNotify)g_main_loop_quit);
-
-                dbus_g_connection_register_g_object (PRIV (self)->bus,
-                                                     path,
-                                                     G_OBJECT (service));
-        } else {
-                g_set_error (error,
-                             0, /* domain */
-                             0, /* code */
-                             _("The creator didn't receive an object"));
-        }
 
         service = UBA_SERVICE (dbus_g_connection_lookup_g_object (PRIV (self)->bus, path));
 
