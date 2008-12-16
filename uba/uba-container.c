@@ -163,7 +163,7 @@ container_realize (GtkWidget* widget)
 
         eu_adeal_uba_creator_connect (PRIV (widget)->proxy,
                                       gtk_socket_get_id (GTK_SOCKET (widget)),
-                                      PRIV (widget)->creator_path,
+                                      PRIV (widget)->plug_path,
                                       &error);
 
         if (error) {
