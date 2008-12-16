@@ -19,6 +19,8 @@ libuba_server_la_SOURCES=\
 	$(BUILT_SOURCES) \
 	uba-creator.c \
 	uba-creator.h \
+	uba-service.c \
+	uba-service.h \
 	$(NULL)
 
 uba_demo_LDADD=\
