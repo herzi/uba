@@ -128,6 +128,7 @@ uba_creator_connect (UbaCreator* self,
                      gchar     * path,
                      GError    **error)
 {
+        UbaService* service = NULL;
         GtkWidget* result = NULL;
 
         g_return_val_if_fail (UBA_IS_CREATOR (self), FALSE);
@@ -146,11 +147,6 @@ uba_creator_connect (UbaCreator* self,
                                         PRIV (self)->loop,
                                         (GDestroyNotify)g_main_loop_quit);
 
-                uba_service_connect (service,
-                                     socket_id,
-                                     path,
-                                     error);
-
                 dbus_g_connection_register_g_object (PRIV (self)->bus,
                                                      path,
                                                      G_OBJECT (service));
@@ -161,7 +157,18 @@ uba_creator_connect (UbaCreator* self,
                              _("The creator didn't receive an object"));
         }
 
-        return GTK_IS_WIDGET (result);
+        service = UBA_SERVICE (dbus_g_connection_lookup_g_object (PRIV (self)->bus, path));
+
+        if (service) {
+                uba_service_connect (service,
+                                     socket_id,
+                                     path,
+                                     error);
+        } else {
+                g_set_error (error, 0, 0, _("Didn't get a service, strange..."));
+        }
+
+        return service != NULL;
 }
 
 UbaCreator*
