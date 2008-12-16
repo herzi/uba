@@ -16,6 +16,11 @@ BUILT_SOURCES=\
 	uba-service-glue.h \
 	$(NULL)
 
+client_LDADD=\
+	$(LDADD) \
+	$(top_srcdir)/uba/libuba-client.la \
+	$(NULL)
+
 libuba_server_la_SOURCES=\
 	$(BUILT_SOURCES) \
 	uba-creator.c \
@@ -58,7 +63,6 @@ AM_CPPFLAGS=\
 	$(NULL)
 LDADD=\
 	$(UBA_LIBS) \
-	../uba/libuba-client.la \
 	$(NULL)
 
 CLEANFILES=$(BUILT_SOURCES)
