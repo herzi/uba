@@ -86,7 +86,6 @@ uba_service_class_init (UbaServiceClass* self_class)
 gboolean
 uba_service_connect (UbaService* self,
                      guint64     socket_id,
-                     gchar     * path,
                      GError    **error)
 {
         GtkWidget* plug = gtk_plug_new (socket_id);

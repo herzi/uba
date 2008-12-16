@@ -43,7 +43,6 @@ GType       uba_service_get_type (void);
 UbaService* uba_service_new      (GtkWidget * widget);
 gboolean    uba_service_connect  (UbaService* self,
                                   guint64     socket_id,
-                                  gchar     * path,
                                   GError    **error);
 
 struct _UbaService {
