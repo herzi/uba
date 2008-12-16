@@ -90,7 +90,7 @@ container_constructed (GObject* object)
 
         PRIV (object)->proxy = dbus_g_proxy_new_for_name (bus,
                                                           PRIV (object)->bus_name,
-                                                          PRIV (object)->plug_path,
+                                                          PRIV (object)->creator_path, /* FIXME: plug_path */
                                                           "eu.adeal.uba.creator"); /* FIXME: move into service */
 
         if (error) {
@@ -157,7 +157,21 @@ container_set_property (GObject     * object,
 static void
 container_realize (GtkWidget* widget)
 {
+        GError* error = NULL;
+
         GTK_WIDGET_CLASS (uba_container_parent_class)->realize (widget);
+
+        eu_adeal_uba_creator_connect (PRIV (widget)->proxy,
+                                      gtk_socket_get_id (GTK_SOCKET (widget)),
+                                      PRIV (widget)->creator_path,
+                                      &error);
+
+        if (error) {
+                g_warning ("error realizing the plug: %s",
+                           error->message);
+
+                g_clear_error (&error);
+        }
 }
 
 static void

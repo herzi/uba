@@ -23,33 +23,19 @@
  * if advised of the possibility of such damage.
  */
 
-#include <dbus/dbus.h>
-#include <dbus/dbus-glib.h>
 #include <gtk/gtk.h>
 #include "uba-container.h"
-
-#include "uba-creator-introspection.h"
 
 int
 main (int   argc,
       char**argv)
 {
-        DBusGConnection* bus;
-        DBusGProxy     * proxy;
         GtkWidget* window;
         GtkWidget* vbox;
         GtkWidget* button;
         GtkWidget* socket;
         GError         * error = NULL;
         gchar          * path = NULL;
-
-        g_type_init ();
-
-        bus = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
-        if (!bus) {
-                g_warning ("eeek!");
-                return 1;
-        }
 
         gtk_init (&argc, &argv);
 
@@ -73,71 +59,10 @@ main (int   argc,
         gtk_container_add (GTK_CONTAINER (vbox),
                            socket);
 
-        proxy = dbus_g_proxy_new_for_name (bus,
-                                           "eu.adeal.uba.demo",
-                                           "/eu/adeal/uba/demo",
-                                           "eu.adeal.uba.creator");
-        eu_adeal_uba_creator_get_instance (proxy,
-                                           &path,
-                                           &error);
-
-        if (error) {
-                g_warning ("error getting the demo (1): %s", error->message);
-                g_clear_error (&error);
-
-                return 1;
-        } else {
-                g_print ("%s\n", path);
-                eu_adeal_uba_creator_connect      (proxy,
-                                                   gtk_socket_get_id (GTK_SOCKET (socket)),
-                                                   path,
-                                                   &error);
-
-                g_free (path);
-
-                if (error) {
-                        g_warning ("error getting the demo (2): %s", error->message);
-                        g_clear_error (&error);
-
-                        return 1;
-                }
-        }
-
-        path = NULL;
         socket = uba_container_new ("eu.adeal.uba.example",
                                     "/eu/adeal/uba/example");
         gtk_container_add (GTK_CONTAINER (vbox),
                            socket);
-
-        proxy = dbus_g_proxy_new_for_name (bus,
-                                           "eu.adeal.uba.example",
-                                           "/eu/adeal/uba/example",
-                                           "eu.adeal.uba.creator");
-        eu_adeal_uba_creator_get_instance (proxy,
-                                           &path,
-                                           &error);
-
-        if (error) {
-                g_warning ("error getting the example (1): %s", error->message);
-                g_clear_error (&error);
-
-                return 1;
-        } else {
-                g_print ("%s\n", path);
-                eu_adeal_uba_creator_connect      (proxy,
-                                                   gtk_socket_get_id (GTK_SOCKET (socket)),
-                                                   path,
-                                                   &error);
-
-                g_free (path);
-
-                if (error) {
-                        g_warning ("error getting the example (2): %s", error->message);
-                        g_clear_error (&error);
-
-                        return 1;
-                }
-        }
 
         gtk_widget_show_all (window);
         gtk_main ();
