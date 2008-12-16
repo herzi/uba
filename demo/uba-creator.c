@@ -141,16 +141,15 @@ uba_creator_connect (UbaCreator* self,
 
         if (GTK_IS_WIDGET (result)) {
                 UbaService* service = uba_service_new (result);
-                GtkWidget* plug = gtk_plug_new (socket_id);
-                g_object_set_data_full (G_OBJECT (plug),
+                g_object_set_data_full (G_OBJECT (result),
                                         "UbaMainLoop",
                                         PRIV (self)->loop,
                                         (GDestroyNotify)g_main_loop_quit);
 
-                gtk_container_add (GTK_CONTAINER (plug),
-                                   result);
-
-                gtk_widget_show_all (plug);
+                uba_service_connect (service,
+                                     socket_id,
+                                     path,
+                                     error);
 
                 dbus_g_connection_register_g_object (PRIV (self)->bus,
                                                      path,

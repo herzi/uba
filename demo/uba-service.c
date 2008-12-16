@@ -89,6 +89,13 @@ uba_service_connect (UbaService* self,
                      gchar     * path,
                      GError    **error)
 {
+        GtkWidget* plug = gtk_plug_new (socket_id);
+
+        gtk_container_add (GTK_CONTAINER (plug),
+                           PRIV (self)->widget);
+
+        gtk_widget_show_all (plug);
+
         return TRUE;
 }
 
