@@ -38,7 +38,8 @@ enum {
 };
 
 struct _UbaCreatorPrivate {
-        GMainLoop* loop;
+        DBusGConnection* bus;
+        GMainLoop      * loop;
 };
 
 #define PRIV(i) ((UbaCreator*)(i))->_private
