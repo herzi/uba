@@ -29,6 +29,7 @@
 
 #include "uba-creator-glue.h"
 #include "uba-marshallers.h"
+#include "uba-service.h"
 
 #include <glib/gi18n.h>
 
@@ -140,6 +141,7 @@ uba_creator_connect (UbaCreator* self,
                        &result);
 
         if (GTK_IS_WIDGET (result)) {
+                UbaService* service = uba_service_new ();
                 plug = gtk_plug_new (socket_id);
                 g_object_set_data_full (G_OBJECT (plug),
                                         "UbaMainLoop",
@@ -150,6 +152,10 @@ uba_creator_connect (UbaCreator* self,
                                    result);
 
                 gtk_widget_show_all (plug);
+
+                dbus_g_connection_register_g_object (PRIV (self)->bus,
+                                                     path,
+                                                     G_OBJECT (service));
         } else {
                 g_set_error (error,
                              0, /* domain */
