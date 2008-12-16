@@ -155,9 +155,22 @@ container_set_property (GObject     * object,
 }
 
 static void
+container_realize (GtkWidget* widget)
+{
+        GTK_WIDGET_CLASS (uba_container_parent_class)->realize (widget);
+}
+
+static void
+container_unrealize (GtkWidget* widget)
+{
+        GTK_WIDGET_CLASS (uba_container_parent_class)->unrealize (widget);
+}
+
+static void
 uba_container_class_init (UbaContainerClass* self_class)
 {
-        GObjectClass* object_class = G_OBJECT_CLASS (self_class);
+        GObjectClass  * object_class = G_OBJECT_CLASS (self_class);
+        GtkWidgetClass* widget_class = GTK_WIDGET_CLASS (self_class);
 
         object_class->constructed  = container_constructed;
         object_class->finalize     = container_finalize;
@@ -172,6 +185,9 @@ uba_container_class_init (UbaContainerClass* self_class)
                                          PROP_CREATOR_PATH,
                                          g_param_spec_string ("creator-path", NULL, NULL,
                                                               NULL, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+
+        widget_class->realize   = container_realize;
+        widget_class->unrealize = container_unrealize;
 
         g_type_class_add_private (self_class, sizeof (UbaContainerPrivate));
 }
