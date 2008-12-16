@@ -31,6 +31,11 @@ struct _UbaServicePrivate {
 
 #define PRIV(i) (((UbaService*)(i))->_private)
 
+enum {
+        PROP_0,
+        PROP_WIDGET
+};
+
 G_DEFINE_TYPE_WITH_CODE (UbaService, uba_service, G_TYPE_OBJECT,
                          dbus_g_object_type_install_info (g_define_type_id, &dbus_glib_uba_service_object_info););
 
@@ -43,8 +48,38 @@ uba_service_init (UbaService* self)
 }
 
 static void
+service_set_property (GObject     * object,
+                      guint         prop_id,
+                      GValue const* value,
+                      GParamSpec  * pspec)
+{
+        switch (prop_id) {
+        case PROP_WIDGET:
+                g_return_if_fail (!PRIV(object)->widget);
+
+                PRIV (object)->widget = g_value_get_object (value);
+
+                g_object_notify (object, "widget");
+                break;
+        default:
+                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+                break;
+        }
+}
+
+static void
 uba_service_class_init (UbaServiceClass* self_class)
 {
+        GObjectClass* object_class = G_OBJECT_CLASS (self_class);
+
+        object_class->set_property = service_set_property;
+
+        g_object_class_install_property (object_class,
+                                         PROP_WIDGET,
+                                         g_param_spec_object ("widget", NULL, NULL,
+                                                              GTK_TYPE_WIDGET,
+                                                              G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY));
+
         g_type_class_add_private (self_class, sizeof (UbaServicePrivate));
 }
 
@@ -63,6 +98,7 @@ uba_service_new (GtkWidget* widget)
         g_return_val_if_fail (GTK_IS_WIDGET (widget), NULL);
 
         return g_object_new (UBA_TYPE_SERVICE,
+                             "widget", widget,
                              NULL);
 }
 
