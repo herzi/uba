@@ -128,7 +128,6 @@ uba_creator_connect (UbaCreator* self,
                      gchar     * path,
                      GError    **error)
 {
-        GtkWidget* plug;
         GtkWidget* result = NULL;
 
         g_return_val_if_fail (UBA_IS_CREATOR (self), FALSE);
@@ -141,8 +140,8 @@ uba_creator_connect (UbaCreator* self,
                        &result);
 
         if (GTK_IS_WIDGET (result)) {
-                UbaService* service = uba_service_new ();
-                plug = gtk_plug_new (socket_id);
+                UbaService* service = uba_service_new (result);
+                GtkWidget* plug = gtk_plug_new (socket_id);
                 g_object_set_data_full (G_OBJECT (plug),
                                         "UbaMainLoop",
                                         PRIV (self)->loop,

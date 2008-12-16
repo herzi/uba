@@ -24,7 +24,7 @@
 #ifndef UBA_SERVICE_H
 #define UBA_SERVICE_H
 
-#include <glib-object.h>
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
@@ -40,7 +40,7 @@ typedef struct _UbaServiceClass   UbaServiceClass;
 #define UBA_SERVICE_GET_CLASS(i) (G_TYPE_INSTANCE_GET_CLASS ((i), UBA_TYPE_SERVICE, UbaServiceClass))
 
 GType       uba_service_get_type (void);
-UbaService* uba_service_new      (void);
+UbaService* uba_service_new      (GtkWidget * widget);
 gboolean    uba_service_connect  (UbaService* self,
                                   guint64     socket_id,
                                   gchar     * path,

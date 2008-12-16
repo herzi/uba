@@ -46,8 +46,10 @@ uba_service_connect (UbaService* self,
 }
 
 UbaService*
-uba_service_new (void)
+uba_service_new (GtkWidget* widget)
 {
+        g_return_val_if_fail (GTK_IS_WIDGET (widget), NULL);
+
         return g_object_new (UBA_TYPE_SERVICE,
                              NULL);
 }
