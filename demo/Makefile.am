@@ -27,7 +27,7 @@ uba_example_SOURCES=\
 	$(NULL)
 
 uba-creator-glue.h: $(top_srcdir)/uba/UbaCreator.xml Makefile
-	dbus-binding-tool --mode=glib-server --prefix=uba_service $< > $@
+	dbus-binding-tool --mode=glib-server --prefix=uba_creator $< > $@
 
 uba-marshallers.h: $(MARSHALLERS) Makefile
 	(cd $(srcdir) && \

@@ -28,7 +28,7 @@
 #include "uba-creator.h"
 
 static GtkWidget*
-connect_cb (UbaService* service,
+connect_cb (UbaCreator* creator,
             guint64     socket_id)
 {
         return gtk_button_new_with_label ("UbaExample");
@@ -39,7 +39,7 @@ main (int   argc,
       char**argv)
 {
         DBusGConnection* bus;
-        UbaService     * service;
+        UbaCreator     * creator;
         GMainLoop      * loop;
         GError         * error = NULL;
 
@@ -70,20 +70,20 @@ main (int   argc,
 
         loop = g_main_loop_new (NULL, FALSE);
 
-        service = uba_service_new ();
-        uba_service_set_main_loop (service, loop);
+        creator = uba_creator_new ();
+        uba_creator_set_main_loop (creator, loop);
 
-        g_signal_connect (service, "connect",
+        g_signal_connect (creator, "connect",
                           G_CALLBACK (connect_cb), NULL);
 
         dbus_g_connection_register_g_object (bus,
                                              "/eu/adeal/uba/example",
-                                             G_OBJECT (service));
+                                             G_OBJECT (creator));
 
         g_main_loop_run (loop);
         g_main_loop_unref (loop);
 
-        g_object_unref (service);
+        g_object_unref (creator);
 
         return 0;
 }

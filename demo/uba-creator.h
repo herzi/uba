@@ -16,52 +16,52 @@
  * In no event shall the authors or contributors be liable for any
  * direct, indirect, incidental, special, exemplary, or consequential
  * damages (including, but not limited to, procurement of substitute
- * goods or services; loss of use, data, or profits; or business
+ * goods or creators; loss of use, data, or profits; or business
  * interruption) however caused and on any theory of liability, whether
  * in contract, strict liability, or tort (including negligence or
  * otherwise) arising in any way out of the use of this software, even
  * if advised of the possibility of such damage.
  */
 
-#ifndef UBA_SERVICE_H
-#define UBA_SERVICE_H
+#ifndef UBA_CREATOR_H
+#define UBA_CREATOR_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-typedef struct _UbaService        UbaService;
-typedef struct _UbaServicePrivate UbaServicePrivate;
-typedef struct _UbaServiceClass   UbaServiceClass;
+typedef struct _UbaCreator        UbaCreator;
+typedef struct _UbaCreatorPrivate UbaCreatorPrivate;
+typedef struct _UbaCreatorClass   UbaCreatorClass;
 
-#define UBA_TYPE_SERVICE         (uba_service_get_type ())
-#define UBA_SERVICE(i)           (G_TYPE_CHECK_INSTANCE_CAST ((i), UBA_TYPE_SERVICE, UbaService))
-#define UBA_SERVICE_CLASS(c)     (G_TYPE_CHECK_CLASS_CAST ((c), UBA_TYPE_SERVICE, UbaServiceClass))
-#define UBA_IS_SERVICE(i)        (G_TYPE_CHECK_INSTANCE_TYPE ((i), UBA_TYPE_SERVICE))
-#define UBA_IS_SERVICE_CLASS(c)  (G_TYPE_CHECK_CLASS_TYPE ((c), UBA_TYPE_SERVICE))
-#define UBA_SERVICE_GET_CLASS(i) (G_TYPE_INSTANCE_GET_CLASS ((i), UBA_TYPE_SERVICE, UbaServiceClass))
+#define UBA_TYPE_CREATOR         (uba_creator_get_type ())
+#define UBA_CREATOR(i)           (G_TYPE_CHECK_INSTANCE_CAST ((i), UBA_TYPE_CREATOR, UbaCreator))
+#define UBA_CREATOR_CLASS(c)     (G_TYPE_CHECK_CLASS_CAST ((c), UBA_TYPE_CREATOR, UbaCreatorClass))
+#define UBA_IS_CREATOR(i)        (G_TYPE_CHECK_INSTANCE_TYPE ((i), UBA_TYPE_CREATOR))
+#define UBA_IS_CREATOR_CLASS(c)  (G_TYPE_CHECK_CLASS_TYPE ((c), UBA_TYPE_CREATOR))
+#define UBA_CREATOR_GET_CLASS(i) (G_TYPE_INSTANCE_GET_CLASS ((i), UBA_TYPE_CREATOR, UbaCreatorClass))
 
-GType       uba_service_get_type      (void);
-UbaService* uba_service_new           (void);
-gboolean    uba_service_connect       (UbaService* self,
+GType       uba_creator_get_type      (void);
+UbaCreator* uba_creator_new           (void);
+gboolean    uba_creator_connect       (UbaCreator* self,
                                        guint64     socket_id,
                                        gchar     * path,
                                        GError    **error);
-gboolean    uba_service_get_instance  (UbaService* self,
+gboolean    uba_creator_get_instance  (UbaCreator* self,
                                        gchar     **path,
                                        GError    **error);
-void        uba_service_set_main_loop (UbaService* self,
+void        uba_creator_set_main_loop (UbaCreator* self,
                                        GMainLoop * loop);
 
-struct _UbaService {
+struct _UbaCreator {
         GObject            base_instance;
-        UbaServicePrivate* _private;
+        UbaCreatorPrivate* _private;
 };
 
-struct _UbaServiceClass {
+struct _UbaCreatorClass {
         GObjectClass       base_class;
 };
 
 G_END_DECLS
 
-#endif /* !UBA_SERVICE_H */
+#endif /* !UBA_CREATOR_H */

@@ -16,7 +16,7 @@
  * In no event shall the authors or contributors be liable for any
  * direct, indirect, incidental, special, exemplary, or consequential
  * damages (including, but not limited to, procurement of substitute
- * goods or services; loss of use, data, or profits; or business
+ * goods or creators; loss of use, data, or profits; or business
  * interruption) however caused and on any theory of liability, whether
  * in contract, strict liability, or tort (including negligence or
  * otherwise) arising in any way out of the use of this software, even
@@ -81,7 +81,7 @@ my_log_func (gchar const*    domain,
 }
 
 static GtkWidget*
-connect_cb (UbaService* service,
+connect_cb (UbaCreator* creator,
             guint64     socket_id)
 {
         GtkWidget* label;
@@ -102,7 +102,7 @@ main (int   argc,
       char**argv)
 {
         DBusGConnection* bus;
-        UbaService     * service;
+        UbaCreator     * creator;
         GMainLoop      * loop;
         GError         * error = NULL;
 
@@ -144,24 +144,24 @@ main (int   argc,
 
         loop = g_main_loop_new (NULL, FALSE);
 
-        service = uba_service_new ();
-        uba_service_set_main_loop (service, loop);
+        creator = uba_creator_new ();
+        uba_creator_set_main_loop (creator, loop);
 
-        g_signal_connect (service, "connect",
+        g_signal_connect (creator, "connect",
                           G_CALLBACK (connect_cb), NULL);
 
-        syslog (LOG_INFO, "before registering: %d refs", G_OBJECT (service)->ref_count);
+        syslog (LOG_INFO, "before registering: %d refs", G_OBJECT (creator)->ref_count);
 
         dbus_g_connection_register_g_object (bus,
                                              "/eu/adeal/uba/demo",
-                                             G_OBJECT (service));
+                                             G_OBJECT (creator));
 
-        syslog (LOG_INFO, "after registering:  %d refs", G_OBJECT (service)->ref_count);
+        syslog (LOG_INFO, "after registering:  %d refs", G_OBJECT (creator)->ref_count);
 
         g_main_loop_run (loop);
         g_main_loop_unref (loop);
 
-        g_object_unref (service);
+        g_object_unref (creator);
 
         closelog ();
 
