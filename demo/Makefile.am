@@ -1,5 +1,8 @@
 SUBDIRS=services
 
+noinst_LTLIBRARIES=\
+	libuba-server.la \
+	$(NULL)
 noinst_PROGRAMS=\
 	client \
 	uba-demo \
@@ -12,11 +15,18 @@ BUILT_SOURCES=\
 	uba-marshallers.h \
 	$(NULL)
 
+libuba_server_la_SOURCES=\
+	$(NULL)
+
 uba_demo_SOURCES=\
 	$(BUILT_SOURCES) \
 	uba-demo.c \
 	uba-creator.c \
 	uba-creator.h \
+	$(NULL)
+uba_demo_LDADD=\
+	$(LDADD) \
+	libuba-server.la \
 	$(NULL)
 
 uba_example_SOURCES=\
@@ -24,6 +34,9 @@ uba_example_SOURCES=\
 	uba-example.c \
 	uba-creator.c \
 	uba-creator.h \
+	$(NULL)
+uba_example_LDADD=\
+	$(uba_demo_LDADD) \
 	$(NULL)
 
 uba-creator-glue.h: $(top_srcdir)/uba/UbaCreator.xml Makefile
