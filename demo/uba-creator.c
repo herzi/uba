@@ -148,30 +148,6 @@ uba_creator_get_instance (UbaCreator* self,
         return *path != NULL;
 }
 
-gboolean
-uba_creator_connect (UbaCreator* self,
-                     guint64     socket_id,
-                     gchar     * path,
-                     GError    **error)
-{
-        UbaService* service = NULL;
-
-        g_return_val_if_fail (UBA_IS_CREATOR (self), FALSE);
-
-        service = UBA_SERVICE (dbus_g_connection_lookup_g_object (PRIV (self)->bus, path));
-
-        if (service) {
-                uba_service_connect (service,
-                                     socket_id,
-                                     path,
-                                     error);
-        } else {
-                g_set_error (error, 0, 0, _("Didn't get a service, strange..."));
-        }
-
-        return service != NULL;
-}
-
 UbaCreator*
 uba_creator_new (void)
 {

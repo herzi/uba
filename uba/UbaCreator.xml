@@ -6,10 +6,6 @@
                 <method name="GetInstance">
                         <arg type="o" name="path" direction="out" />
                 </method>
-                <method name="Connect">
-                        <arg type="t" name="socket" direction="in" />
-                        <arg type="o" name="path" direction="in" />
-                </method>
         </interface>
 </node>
 

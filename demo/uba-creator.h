@@ -43,10 +43,6 @@ typedef struct _UbaCreatorClass   UbaCreatorClass;
 
 GType       uba_creator_get_type      (void);
 UbaCreator* uba_creator_new           (void);
-gboolean    uba_creator_connect       (UbaCreator* self,
-                                       guint64     socket_id,
-                                       gchar     * path,
-                                       GError    **error);
 gboolean    uba_creator_get_instance  (UbaCreator* self,
                                        gchar     **path,
                                        GError    **error);
