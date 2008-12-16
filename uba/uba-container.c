@@ -58,6 +58,7 @@ static void
 container_constructed (GObject* object)
 {
         DBusGConnection* bus;
+        DBusGProxy     * proxy;
         GError         * error = NULL;
 
         g_return_if_fail (PRIV (object)->bus_name);
@@ -67,17 +68,34 @@ container_constructed (GObject* object)
         /* FIXME: add error check */
         bus = dbus_g_bus_get (DBUS_BUS_SESSION, NULL);
 
-        PRIV (object)->proxy = dbus_g_proxy_new_for_name (bus,
-                                                          PRIV (object)->bus_name,
-                                                          PRIV (object)->creator_path,
-                                                          "eu.adeal.uba.creator");
-        eu_adeal_uba_creator_get_instance (PRIV (object)->proxy,
+        proxy = dbus_g_proxy_new_for_name (bus,
+                                           PRIV (object)->bus_name,
+                                           PRIV (object)->creator_path,
+                                           "eu.adeal.uba.creator");
+        eu_adeal_uba_creator_get_instance (proxy,
                                            &PRIV (object)->plug_path,
                                            &error);
 
+        g_object_unref (proxy);
+
         if (error) {
-                g_warning ("error getting the service proxy for \"%s\" on \"%s\": %s",
+                g_warning ("error getting the service proxy for the creator \"%s\" on \"%s\": %s",
                            PRIV (object)->creator_path,
+                           PRIV (object)->bus_name,
+                           error->message);
+                g_clear_error (&error);
+
+                return;
+        }
+
+        PRIV (object)->proxy = dbus_g_proxy_new_for_name (bus,
+                                                          PRIV (object)->bus_name,
+                                                          PRIV (object)->plug_path,
+                                                          "eu.adeal.uba.creator"); /* FIXME: move into service */
+
+        if (error) {
+                g_warning ("error getting the service proxy for the plug \"%s\" on \"%s\": %s",
+                           PRIV (object)->plug_path,
                            PRIV (object)->bus_name,
                            error->message);
                 g_clear_error (&error);
